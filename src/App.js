@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+
+import EntryPage from './entry/EntryPage';
 
 class App extends Component {
   render() {
     return (
-      <h1>HELLO WORLD</h1>
-    )
+      <EntryPage />
+    );
   }
 }
 
-export default App
+export default App;
