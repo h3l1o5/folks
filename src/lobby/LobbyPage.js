@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class EntryPage extends Component {
+class LobbyPage extends Component {
   render() {
     return (
       <div>
-        <h1>Hello entry page</h1>
+        <h1>HELLO LOBBY</h1>
       </div>
     );
   }
 }
 
-export default EntryPage;
+export default LobbyPage;
