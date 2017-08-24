@@ -12,7 +12,9 @@
   crossorigin="anonymous">
   </script>
   <script src="semantic/dist/semantic.min.js"></script>
-  <!-- semantic-ui -->  
+  <!-- axios -->  
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- local css -->
   <link rel="stylesheet" href="index.css">
   <title>Folks</title>
 </head>
@@ -23,7 +25,12 @@
     </div>
 
     <div id="loginForm">
-      <form action="" class="ui big form">
+      <form class="ui large form">
+        <div class="ui error message">
+          <div class="header">Login Failed</div>
+          <p>Incorrect username or password</p>
+        </div>
+
         <div id="usernameField" class="field">
           <label>USERNAME</label>
           <div class="ui left icon input">

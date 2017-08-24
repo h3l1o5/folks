@@ -17,7 +17,7 @@ body > button {
   grid-template-areas: ". . ."
                        ". brand ."
                        ". loginForm ."
-                       ". . .";
+                       ". loginForm .";
 }
 
 .container > #brand {
@@ -44,7 +44,21 @@ body > button {
   width: 50%;
 }
 
+.container > #loginForm .error > .header {
+  font-size: 15px;
+}
+
+.container > #loginForm p {
+  font-size: 13px;
+}
+
 .modal > .header > p {
   color: #303481;
   font-size: 30px;
+}
+
+@media screen and (max-width: 480px) {
+  .container > #brand > h1 {
+    font-size: 70px;
+  }
 }
