@@ -1,51 +1,22 @@
 {
-  "name": "my_simple_react_boilerplate",
-  "version": "1.0.0",
-  "description": "a simple reactjs boilerplate",
-  "main": "index.js",
-  "scripts": {
-    "start": "concurrently \"npm run client\" \"npm run server\"",
-    "client": "webpack-dev-server --open --devtool eval --progress --colors",
-    "server": "nodemon server/index.js",
-    "test": "jest",
-    "make": "webpack -p",
-    "clean": "rm -rf ./dist/"
-  },
-  "author": "martysun",
-  "license": "ISC",
+  "name": "folks",
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-eslint": "^7.2.3",
-    "babel-loader": "^7.0.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "concurrently": "^3.5.0",
-    "css-loader": "^0.28.4",
-    "enzyme": "^2.9.1",
-    "file-loader": "^0.11.2",
-    "html-webpack-plugin": "^2.28.0",
-    "jest-cli": "^20.0.4",
-    "less-loader": "^4.0.5",
-    "node-sass": "^4.5.3",
-    "nodemon": "^1.11.0",
-    "react-addons-test-utils": "^15.6.0",
-    "react-test-renderer": "^15.6.1",
-    "sass-loader": "^6.0.5",
-    "style-loader": "^0.18.2",
-    "url-loader": "^0.5.9",
-    "webpack": "^2.6.1",
-    "webpack-dev-server": "^2.4.5"
+    "react-scripts": "1.0.11"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
-    "mongoose": "^4.11.7",
+    "mongoose": "^4.11.8",
     "morgan": "^1.8.2",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-router-dom": "^4.1.2",
-    "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.71.4"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }

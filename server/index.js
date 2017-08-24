@@ -6,28 +6,36 @@ const mongoose = require('mongoose')
 const app = express()
 const apiRoute = require('./routes/api/v1')
 
+// db
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost:27017/folks')
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/../build')))
-  app.use('/', (req, res) => { res.sendFile(path.join(__dirname, '/../dist/app.html')) })
-}
+// static
+app.use(express.static(path.join(__dirname, '/../build')))
 
+// other middlewares
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+// api routes
 app.use('/api/v1/', apiRoute)
 
+// normal routes
+app.get('/app/', (req, res) => { res.sendFile(path.join(__dirname, '/../build/index.html')) })
+app.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'views/index.html')) })
 
-
+// 4xx 5xx
 app.use((req, res) => {
   res.status(404)
   res.send('404 not found')
 })
 app.use((err, req, res, next) => {
   res.status(500)
-  res.send(err)
+  res.send(err.message)
 })
-app.listen(process.env.PORT || 3001)
+
+const port = process.env.PORT || 3001
+app.listen(port, () => {
+  console.log('\nserver listening on port ' + port + '\n')
+})
