@@ -14,15 +14,19 @@ router.post('/', (req, res, next) => {
     User.findOne({ username: username }, (err, user) => {
       if (err) { next(err) }
       if (user) {
-        if (password === user.password) {
-          const token = jwt.sign({
-            id: user._id,
-            username: user.name
-          }, config.jwtSecret)
-          res.json({ token })
-        } else {
-          res.status(403).json({ error: 'Incorrect username or password' })
-        }
+        user.checkPassword(password)
+          .then((isMatch) => {
+            if (isMatch) {
+              const token = jwt.sign({
+                id: user._id,
+                username: user.name
+              }, config.jwtSecret)
+              res.json({ token })
+            } else {
+              res.status(403).json({ error: 'Incorrect username or password' })
+            }
+          })
+          .catch((err) => { next(err) })
       } else {
         res.status(403).json({ error: 'Incorrect username or password' })
       }
