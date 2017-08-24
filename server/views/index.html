@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- check auth status before load page -->
+  <script>
+    if (localStorage.getItem('jwt')) {
+      window.location = "/app"    
+    }
+  </script>
   <!-- semantic-ui -->
   <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
   <script

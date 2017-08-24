@@ -1,8 +1,10 @@
 const express = require('express')
 const path = require('path')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 const User = require(path.resolve('server', 'models', 'User.js'))
+const config = require('../../../config')
 
 router.post('/', (req, res, next) => {
   const username = req.body.username
@@ -13,7 +15,11 @@ router.post('/', (req, res, next) => {
       if (err) { next(err) }
       if (user) {
         if (password === user.password) {
-          res.json({ success: true })
+          const token = jwt.sign({
+            id: user._id,
+            username: user.name
+          }, config.jwtSecret)
+          res.json({ token })
         } else {
           res.status(403).json({ error: 'Incorrect username or password' })
         }

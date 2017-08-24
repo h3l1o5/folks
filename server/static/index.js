@@ -50,6 +50,7 @@ $('#loginForm form').submit((e) => {
     .then((res) => {
       loginButton.removeClass('loading')
       loginButton.prop('disabled', false)
+      localStorage.setItem('jwt', res.data.token)
       window.location = "/app"
     })
     .catch((err) => {
@@ -58,8 +59,6 @@ $('#loginForm form').submit((e) => {
       $('#loginForm form').addClass('error')
     })
   }
-
-
 })
 
 // signup form
