@@ -2,8 +2,6 @@
 
 # dependencies
 /node_modules
-/vendor
-semantic.json
 
 # testing
 /coverage
