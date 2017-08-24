@@ -1,15 +1,38 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt-nodejs')
+
+const SALT_FACTOR = 10
 
 const userSchema = mongoose.Schema({
-  account: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   createAt: { type: Date, default: Date.now },
-  displayName: String,
-  gender: String
 })
 
-userSchema.methods.name = function() {
-  return this.displayName
+userSchema.methods.checkPassword = function(guess) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(guess, this.password, (err, isMatch) => {
+      if (err) { reject(err) }
+      resolve(isMatch)
+    })
+  })
 }
+
+const noop = () => {}
+userSchema.pre('save', function(done) {
+  const user = this
+  if (!user.isModified('password')) {
+    return done()
+  }
+  bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
+    if (err) { return done(err) }
+    bcrypt.hash(user.password, salt, noop, (err, hashedPassword) => {
+      if (err) { return done(err) }
+      user.password = hashedPassword
+      done()
+    })
+  })
+})
 
 module.exports = mongoose.model('Users', userSchema)
