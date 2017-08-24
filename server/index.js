@@ -10,9 +10,6 @@ const apiRoute = require('./routes/api/v1')
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost:27017/folks')
 
-// static
-app.use(express.static(path.join(__dirname, '/../build')))
-
 // other middlewares
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -24,6 +21,11 @@ app.use('/api/v1/', apiRoute)
 // normal routes
 app.get('/app/', (req, res) => { res.sendFile(path.join(__dirname, '/../build/index.html')) })
 app.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'views/index.html')) })
+
+// static
+app.use(express.static(path.join(__dirname, '/../build')))
+app.use(express.static(path.join(__dirname, 'static')))
+app.use(express.static(path.join(__dirname, '/../vendor')))
 
 // 4xx 5xx
 app.use((req, res) => {

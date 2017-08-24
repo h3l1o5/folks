@@ -4,9 +4,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <!-- semantic-ui -->
+  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous">
+  </script>
+  <script src="semantic/dist/semantic.min.js"></script>
+  <!-- semantic-ui -->  
+  <link rel="stylesheet" href="index.css">
+  <title>Folks</title>
 </head>
 <body>
-  HI
+  <div class="container">
+    <div id="brand">
+      <h1>folks</h1>
+    </div>
+
+    <div id="loginForm">
+      <form action="" class="ui big form">
+        <div id="usernameField" class="field">
+          <label>USERNAME</label>
+          <div class="ui left icon input">
+            <input type="text" name="username" placeholder="username">
+            <i class="id badge icon"></i>
+          </div>
+        </div>
+
+        <div id="passwordField" class="field">
+          <label>PASSWORD</label>
+          <div class="ui left icon input">
+            <input type="password" name="password" placeholder="password">
+            <i class="lock icon"></i>            
+          </div>
+        </div>
+
+        <div id="loginButton">
+          <button class="ui button primary">LOGIN</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="ui modal">
+      <i class="close icon"></i>
+      <div class="header">
+        <p>New User</p>
+      </div>
+      <div class="content">
+        <div class="description">
+          <div id="signupForm">
+              <form action="" class="ui big form">
+                <div id="usernameField" class="field">
+                  <label>USERNAME</label>
+                  <div class="ui left icon input">
+                    <input type="text" name="username" placeholder="username">
+                    <i class="id badge icon"></i>            
+                  </div>
+                </div>
+        
+                <div id="emailField" class="field">
+                  <label>EMAIL ADDRESS</label>
+                  <div class="ui left icon input">
+                    <input type="email" name="email" placeholder="email address">
+                    <i class="mail icon"></i>            
+                  </div>
+                </div>
+
+                <div id="passwordField" class="two fields">
+                  <div class="field">
+                    <label>PASSWORD</label>
+                    <div class="ui left icon input">
+                      <input type="password" name="password" placeholder="password">
+                      <i class="lock icon"></i>            
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>PASSWORD COMFIRMATION</label>
+                    <div class="ui left icon input">
+                      <input type="password" name="password" placeholder="password again">
+                      <i class="lock icon"></i>            
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui black deny button">
+          CANCEL
+        </div>
+        <div class="ui positive right labeled icon button">
+          YES, SIGNUP
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="signupButton" class="ui primary basic button">
+    SIGNUP
+  </button>
+
+  <script src="index.js"></script>
 </body>
 </html>

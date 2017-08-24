@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "nodemon": "^1.11.0",
     "react-scripts": "1.0.11"
   },
   "dependencies": {
@@ -11,12 +12,15 @@
     "mongoose": "^4.11.8",
     "morgan": "^1.8.2",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "semantic-ui": "^2.2.13"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run build && npm run server",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "client": "react-scripts start",
+    "server": "nodemon server/index.js"
   }
 }

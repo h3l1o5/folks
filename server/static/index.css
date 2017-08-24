@@ -1,0 +1,50 @@
+/* @import url('https://fonts.googleapis.com/css?family=Indie+Flower'); */
+@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Indie+Flower');
+
+body > button {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.container {
+  max-width: 1170px;
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: ". . ."
+                       ". brand ."
+                       ". loginForm ."
+                       ". . .";
+}
+
+.container > #brand {
+  grid-area: brand;
+  text-align: center;
+}
+
+.container > #brand > h1 {
+  font-size: 100px;
+  font-family: "Gloria Hallelujah", cursive;  
+  color: #303481;
+}
+
+.container > #loginForm {
+  grid-area: loginForm;
+}
+
+.container > #loginForm #loginButton {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.container > #loginForm button {
+  width: 50%;
+}
+
+.modal > .header > p {
+  color: #303481;
+  font-size: 30px;
+}
