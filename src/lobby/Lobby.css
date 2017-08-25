@@ -1,0 +1,11 @@
+.lobby {
+  background-color: #D8DFE2;
+  height: 100%;
+  padding-top: 48px;
+}
+
+@media screen and (min-width: 480px) {
+  .lobby {
+    padding-top: 72px;
+  }
+}
