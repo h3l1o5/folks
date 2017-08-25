@@ -6,12 +6,9 @@ $('#signupButton').click(() => {
 
 $('.ui.modal').modal('setting', {
   onApprove: () => {
-    $('#loginForm form').submit()
+    $('#signupForm form').submit()
     return false
   },
-  onDeny: () => {
-    return
-  }
 })
 
 // login form
@@ -62,6 +59,86 @@ $('#loginForm form').submit((e) => {
 })
 
 // signup form
+const signupUsernameField = $('#signupForm #usernameField')
+const signupEmailField = $('#signupForm #emailField')
+const signupPasswordGroupField = $('#signupForm #passwordGroupField')
+const signupButton = $('.positive.button')
+const cancelButton = $('.deny.button')
+
+const signupUsernameInput = $('#signupForm #usernameField input')
+const signupEmailInput = $('#signupForm #emailField input')
+const signupPasswordInput = $('#signupForm #passwordField input')
+const signupPasswordComfirmationInput = $('#signupForm #passwordComfirmationField input')
+
+
 $('#signupForm form').submit((e) => {
-  e.preventDefault()  
+  e.preventDefault()
+  let isValid = true
+
+  if (!e.target.username.value) {
+    signupUsernameField.addClass('error')
+    isValid = false
+  } else {
+    signupUsernameField.removeClass('error')    
+  }
+
+  if (!e.target.email.value) {
+    signupEmailField.addClass('error')
+    isValid = false
+  } else {
+    signupEmailField.removeClass('error')    
+  }
+
+  if (e.target.password.value !== e.target.passwordComfirmation.value) {
+    signupPasswordGroupField.addClass('error')
+    isValid = false
+  } else {
+    signupPasswordGroupField.removeClass('error')    
+  }
+
+  if (!isValid) {
+    return 
+  } else {
+    signupButton.addClass('loading')
+    signupButton.addClass('disabled')
+    cancelButton.addClass('disabled')
+    signupUsernameInput.prop('disabled', true)
+    signupEmailInput.prop('disabled', true)
+    signupPasswordInput.prop('disabled', true)
+    signupPasswordComfirmationInput.prop('disabled', true)
+    
+    
+    axios.post('/api/v1/users', {
+      username: e.target.username.value,
+      email: e.target.email.value,
+      password: e.target.password.value
+    })
+    .then((res) => {
+      signupButton.removeClass('loading')
+      $('#signupForm form').addClass('success')
+    })
+    .catch((err) => {
+      signupButton.removeClass('loading')
+      signupButton.removeClass('disabled')
+      cancelButton.removeClass('disabled')  
+      signupUsernameInput.prop('disabled', false)
+      signupEmailInput.prop('disabled', false)
+      signupPasswordInput.prop('disabled', false)
+      signupPasswordComfirmationInput.prop('disabled', false)  
+      $('#signupForm form').addClass('error')
+      $('#signupForm form .error.message p').html(err.response.data.error.message)
+
+      if (err.response.data.error.code === 'USERNAME') {
+        signupUsernameField.addClass('error')    
+      } else {
+        signupUsernameField.removeClass('error')            
+      }
+
+      if (err.response.data.error.code === 'EMAIL') {
+        signupEmailField.addClass('error')
+      } else {
+        signupEmailField.removeClass('error')        
+      }
+    })
+  }
 })

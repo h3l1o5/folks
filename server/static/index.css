@@ -48,7 +48,15 @@ body > button {
   font-size: 15px;
 }
 
-.container > #loginForm p {
+.container > #loginForm .error p {
+  font-size: 13px;
+}
+
+.modal #signupForm .error .header {
+  font-size: 15px;
+}
+
+.modal #signupForm .error p {
   font-size: 13px;
 }
 
