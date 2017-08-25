@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Indie+Flower');
+
+.appBar {
+  height: 48px;
+  width: 100%;
+  background-color: #303481;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.brand {
+  font-family: "Gloria Hallelujah", cursive; 
+  font-size: 25px;
+  padding-top: 0px;
+  color: #D6E6F2;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media screen and (min-width: 480px) {
+  .appBar {
+    height: 72px;
+  }
+
+  .brand {
+    font-size: 38px;
+    height: 48px;
+  }
+}

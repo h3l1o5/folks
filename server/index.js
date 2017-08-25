@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const logger = require('morgan')
 const mongoose = require('mongoose')
 const app = express()
+
 const apiRoute = require('./routes/api/v1')
 
 // db
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/api/v1/', apiRoute)
 
 // normal routes
-app.get('/app/', (req, res) => { res.sendFile(path.join(__dirname, '/../build/index.html')) })
+app.get('/app*', (req, res) => { res.sendFile(path.join(__dirname, '/../build/index.html')) })
 app.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'views/index.html')) })
 
 // static

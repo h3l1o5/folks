@@ -16,6 +16,7 @@
     "morgan": "^1.8.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2",
     "semantic-ui": "^2.2.13"
   },
   "scripts": {
