@@ -1,9 +1,15 @@
 const router = require('express').Router()
+const jwt = require('jsonwebtoken')
 
 const Room = require('../../../models/Room')
+const authenticate = require('../../../middlewares/authenticate')
+
+router.use(authenticate)
 
 router.post('/', (req, res, next) => {
-  const { title, createBy } = req.body
+  const { title } = req.body
+  const createBy = req.currentUser._id
+
   const newRoom = new Room({
     title,
     createBy,

@@ -12,6 +12,8 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "jsonwebtoken": "^7.4.3",
+    "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.4",
     "mongoose": "^4.11.8",
     "morgan": "^1.8.2",
     "react": "^15.6.1",
@@ -19,6 +21,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "semantic-ui": "^2.2.13"
   },
   "scripts": {
