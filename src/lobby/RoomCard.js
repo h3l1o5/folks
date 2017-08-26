@@ -6,7 +6,9 @@ class RoomCard extends Component {
   render() {
     return (
       <div className="roomCard">
-        {this.props.title}
+        <h3>{this.props.title}</h3>
+        <h5>{this.props.createBy}</h5>
+        <h5>{this.props.createAt}</h5>
       </div>
     )
   }

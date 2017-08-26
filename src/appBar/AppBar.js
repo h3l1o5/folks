@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { setShowAddRoomModal } from '../actions/lobbyActions'
 
 import './AppBar.css'
 
 class AppBar extends Component {
 
   handleAddRoomClick = () => {
-    console.log('123')
+    this.props.setShowAddRoomModal(true)
   }
 
   render() {
@@ -20,4 +23,4 @@ class AppBar extends Component {
   }
 }
 
-export default AppBar
+export default connect(null, { setShowAddRoomModal })(AppBar)

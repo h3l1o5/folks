@@ -12,9 +12,8 @@ class RoomCardList extends Component {
   }
 
   render() {
-    console.log(this.props.rooms)
     const rooms = this.props.rooms.map((room) => (
-      <RoomCard key={room._id} title={room.title} />
+      <RoomCard key={room._id} title={room.title} createBy={room.createBy} createAt={room.createAt} />
     ))
     return (
       <div className="roomCardList">

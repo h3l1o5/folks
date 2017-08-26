@@ -1,4 +1,4 @@
-import { SET_LOADING_STATUS } from '../actions/types'
+import { SET_LOADING_STATUS, SET_ADD_ROOM_MODAL_STATUS } from '../actions/types'
 
 const setLobbyIsLoading = (isLoading) => {
   return {
@@ -7,6 +7,14 @@ const setLobbyIsLoading = (isLoading) => {
   }
 }
 
+const setShowAddRoomModal = (show) => {
+  return {
+    type: SET_ADD_ROOM_MODAL_STATUS,
+    show
+  }
+}
+
 export {
-  setLobbyIsLoading
+  setLobbyIsLoading,
+  setShowAddRoomModal
 }

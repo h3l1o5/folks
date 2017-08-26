@@ -2,3 +2,8 @@
   height: 100%;
   background-color: #D8DFE2;
 }
+
+.appContent {
+  max-width: 840px;
+  margin: 0 auto;
+}

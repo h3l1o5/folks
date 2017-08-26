@@ -17,7 +17,6 @@ const getRoomsFromServer = () => (dispatch) => {
     })
 }
 
-
 const setRoomsList = (rooms) => {
   return {
     type: SET_ROOM_LIST,
@@ -27,5 +26,5 @@ const setRoomsList = (rooms) => {
 
 export {
   getRoomsFromServer,
-  setRoomsList
+  setRoomsList,
 }

@@ -12,12 +12,12 @@ router.get('/', (req, res, next) => {
       if (err) { next(err) }
       res.json({ rooms })
     })
-  }, 2000)
+  }, 1000)
 })
 
 router.post('/', (req, res, next) => {
   const { title } = req.body
-  const createBy = req.currentUser._id
+  const createBy = req.currentUser.username
 
   const newRoom = new Room({
     title,

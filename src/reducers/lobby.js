@@ -1,4 +1,4 @@
-import { SET_LOADING_STATUS } from '../actions/types'
+import { SET_LOADING_STATUS, SET_ADD_ROOM_MODAL_STATUS } from '../actions/types'
 
 export default (state = {}, action = {}) => {
   switch (action.type) {
@@ -6,6 +6,11 @@ export default (state = {}, action = {}) => {
       return {
         ...state,
         isLoading: action.isLoading
+      }
+    case SET_ADD_ROOM_MODAL_STATUS:
+      return {
+        ...state,
+        showAddRoomModal: action.show
       }
     default:
       return state
