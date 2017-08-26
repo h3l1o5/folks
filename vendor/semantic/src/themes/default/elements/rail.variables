@@ -7,7 +7,7 @@
 --------------------*/
 
 @width: 300px;
-@height: 100%;
+@min-height: 100%;
 
 @distance: 4rem;
 @splitDistance: (@distance / 2);

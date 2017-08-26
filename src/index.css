@@ -1,10 +1,10 @@
 html {
-  height: 100%;
+  min-height: 100%;
   background-color: #D8DFE2;
 }
 
 body {
-  height: 100%;
+  min-height: 100%;
   margin-left: auto;
   margin-right: auto;
   padding: 0;
@@ -12,5 +12,5 @@ body {
 }
 
 #root {
-  height: 100%;
+  min-height: 100%;
 }
