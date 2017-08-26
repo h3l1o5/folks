@@ -12,6 +12,7 @@ import { setCurrentUser } from './actions/authActions'
 import setAuthorizationToken from './utils/setAuthorizationToken'
 
 import './index.css'
+import 'semantic-ui-css/semantic.min.css'
 
 if (!localStorage.jwt) { window.location = '/' } 
 else {

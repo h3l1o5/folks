@@ -1,22 +1,33 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import RoomCard from './RoomCard'
+import { getRoomsFromServer } from '../actions/roomsActions'
 
 import './RoomCardList.css'
 
 class RoomCardList extends Component {
+  componentWillMount() {
+    this.props.getRoomsFromServer()
+  }
+
   render() {
+    console.log(this.props.rooms)
+    const rooms = this.props.rooms.map((room) => (
+      <RoomCard key={room._id} title={room.title} />
+    ))
     return (
       <div className="roomCardList">
-        <RoomCard title='room1' />
-        <RoomCard title='room2' />
-        <RoomCard title='room3' />
-        <RoomCard title='room4' />     
-        <RoomCard title='room5' />        
-        <RoomCard title='room6' />        
+        {rooms}
       </div>
     )
   }
 }
 
-export default RoomCardList
+const mapStateToProps = (state) => {
+  return {
+    rooms: state.rooms
+  }
+}
+
+export default connect(mapStateToProps, { getRoomsFromServer })(RoomCardList)

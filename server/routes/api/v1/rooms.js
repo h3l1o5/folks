@@ -6,6 +6,15 @@ const authenticate = require('../../../middlewares/authenticate')
 
 router.use(authenticate)
 
+router.get('/', (req, res, next) => {
+  setTimeout(() => {
+    Room.find({}, (err, rooms) => {
+      if (err) { next(err) }
+      res.json({ rooms })
+    })
+  }, 2000)
+})
+
 router.post('/', (req, res, next) => {
   const { title } = req.body
   const createBy = req.currentUser._id

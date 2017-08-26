@@ -22,7 +22,9 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "semantic-ui": "^2.2.13"
+    "semantic-ui": "^2.2.13",
+    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-react": "^0.71.5"
   },
   "scripts": {
     "start": "npm run build && npm run server",
@@ -31,5 +33,6 @@
     "eject": "react-scripts eject",
     "client": "react-scripts start",
     "server": "nodemon server/index.js"
-  }
+  },
+  "proxy": "http://localhost:3001/"
 }
