@@ -35,7 +35,6 @@ class Lobby extends Component {
   render() {
     return (
         <div className="lobby">
-          {this.props.isLoading ? <Dimmer active><Loader indeterminate>Loading</Loader></Dimmer> : null}
           <AddRoomModal 
             show={this.props.showAddRoomModal} 
             onClose={this.handleAddRoomModalClose} 
@@ -55,7 +54,6 @@ class Lobby extends Component {
 }
 
 Lobby.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
   showAddRoomModal: PropTypes.bool.isRequired,
   setShowAddRoomModal: PropTypes.func.isRequired,
   getRoomsFromServer: PropTypes.func.isRequired
@@ -63,7 +61,6 @@ Lobby.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    isLoading: state.lobby.isLoading,
     showAddRoomModal: state.lobby.showAddRoomModal,
   }
 }
