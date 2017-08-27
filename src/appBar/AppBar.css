@@ -6,7 +6,7 @@
   position: fixed;
   top: 0;
   z-index: 10;
-  background-color: #303481;
+  background-color: #3F51B5;
   box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.46);
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
@@ -18,7 +18,7 @@
   font-size: 25px;
   font-weight: bold;
   padding-top: 15px;
-  color: #D6E6F2;
+  color: white;
   text-align: center;
   grid-area: brand;
 }
@@ -30,14 +30,14 @@
 
 .addRoom i {
   font-size: 30px;
-  color: #D6E6F2;
+  color: white;
   margin-top: 10px;
   margin-right: 20px;
   cursor: pointer;
 }
 
 .addRoom i:hover {
-  color: lightgray;
+  color: #E8EAF6;
 }
 
 .addRoom i:active {

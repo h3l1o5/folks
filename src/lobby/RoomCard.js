@@ -8,7 +8,7 @@ class RoomCard extends Component {
   render() {
     return (
       <div className="roomCard">
-        <div className="info">
+        <div className="info" onClick={() => this.props.onEnter(this.props.id)} style={{cursor: 'pointer'}}>
           <h3>{this.props.title}</h3>
           <h5>{this.props.createBy}</h5>
           <h5>{this.props.createAt}</h5>
@@ -19,7 +19,7 @@ class RoomCard extends Component {
               <Button disabled size="mini"><Icon name='users' />OWNER</Button> :
               this.props.role === 'member' ?              
               <Button disabled size="mini"><Icon name='user' />MEMBER</Button> :
-              <Button primary size="mini" onClick={() => this.props.onJoin(this.props.id)}>JOIN</Button> 
+              <Button color="teal" size="mini" onClick={() => this.props.onJoin(this.props.id)}>JOIN</Button> 
             }
           </div>
         </div>
@@ -35,6 +35,7 @@ RoomCard.propTypes = {
   createAt: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
   onJoin: PropTypes.func.isRequired,
+  onEnter: PropTypes.func.isRequired,
 }
 
 export default RoomCard

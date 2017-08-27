@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 import { Loader, Dimmer } from 'semantic-ui-react'
 import RoomCardList from './RoomCardList'
@@ -12,6 +13,10 @@ import { getRoomsFromServer } from '../actions/roomsActions'
 import './Lobby.css'
 
 class Lobby extends Component {
+  state = {
+    roomViewOpen: false
+  }
+
   handleAddRoomModalClose = () => {
     this.props.setShowAddRoomModal(false)
   }
@@ -29,15 +34,22 @@ class Lobby extends Component {
 
   render() {
     return (
-      <div className="lobby">
-        {this.props.isLoading ? <Dimmer active><Loader indeterminate>Loading</Loader></Dimmer> : null}
-        <AddRoomModal 
-          show={this.props.showAddRoomModal} 
-          onClose={this.handleAddRoomModalClose} 
-          onSubmit={this.handleAddRoomModalSubmit}
-        />
-        <RoomCardList />
-      </div>
+        <div className="lobby">
+          {this.props.isLoading ? <Dimmer active><Loader indeterminate>Loading</Loader></Dimmer> : null}
+          <AddRoomModal 
+            show={this.props.showAddRoomModal} 
+            onClose={this.handleAddRoomModalClose} 
+            onSubmit={this.handleAddRoomModalSubmit}
+          />
+          <ReactCSSTransitionGroup
+            transitionName="example"
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}>
+            <RoomCardList />
+          </ReactCSSTransitionGroup>
+        </div>
     )
   }
 }

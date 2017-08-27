@@ -6,11 +6,12 @@ import _ from 'lodash'
 
 import RoomCard from './RoomCard'
 import { getRoomsFromServer, addMember } from '../actions/roomsActions'
+import { enterRoom } from '../actions/roomActions'
 
 import './RoomCardList.css'
 
 class RoomCardList extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getRoomsFromServer()
   }
 
@@ -27,8 +28,13 @@ class RoomCardList extends Component {
     }
   }
 
-  handleJoin = (roomId) => {
+  handleJoinRoom = (roomId) => {
     this.props.addMember(roomId, this.props.user.username)
+  }
+
+  handlEnterRoom = (roomId) => {
+    this.props.enterRoom(roomId)
+    this.context.router.history.push(`/app/room/${roomId}`)
   }
 
   render() {
@@ -43,7 +49,8 @@ class RoomCardList extends Component {
           createBy={room.createBy} 
           createAt={dateFormate} 
           role={role}
-          onJoin={this.handleJoin}
+          onJoin={this.handleJoinRoom}
+          onEnter={this.handlEnterRoom}
         />
       )
     })
@@ -53,6 +60,10 @@ class RoomCardList extends Component {
       </div>
     )
   }
+}
+
+RoomCardList.contextTypes = {
+  router: PropTypes.object.isRequired,
 }
 
 RoomCardList.propTypes = {
@@ -69,4 +80,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { getRoomsFromServer, addMember })(RoomCardList)
+export default connect(mapStateToProps, { getRoomsFromServer, addMember, enterRoom })(RoomCardList)
