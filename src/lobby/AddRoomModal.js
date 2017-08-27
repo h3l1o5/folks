@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Modal, Header, Button, Icon, Input } from 'semantic-ui-react'
 
 class AddRoomModal extends Component {
@@ -21,16 +22,22 @@ class AddRoomModal extends Component {
           />
         </Modal.Content>
         <Modal.Actions>
-          <Button basic color='red' inverted onClick={this.props.onClose}>
+          <Button color='red' inverted onClick={this.props.onClose}>
             <Icon name='remove' /> Cancel
           </Button>
-          <Button basic color='green' inverted onClick={() => { this.props.onSubmit(this.state) }}>
+          <Button color='green' inverted onClick={() => { this.props.onSubmit(this.state) }}>
             <Icon name='checkmark' /> Create
           </Button>
         </Modal.Actions>
       </Modal>
     )
   }
+}
+
+AddRoomModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default AddRoomModal

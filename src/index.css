@@ -1,16 +1,14 @@
 html {
-  min-height: 100%;
-  background-color: #D8DFE2;
+  height: 100%;
 }
 
 body {
-  min-height: 100%;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
   padding: 0;
-  background-color: #D8DFE2;
 }
 
 #root {
-  min-height: 100%;
+  height: 100%;
 }

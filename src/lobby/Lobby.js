@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -29,7 +30,7 @@ class Lobby extends Component {
   render() {
     return (
       <div className="lobby">
-        {this.props.isLoading ? <Dimmer active><Loader></Loader></Dimmer> : null}
+        {this.props.isLoading ? <Dimmer active><Loader indeterminate>Loading</Loader></Dimmer> : null}
         <AddRoomModal 
           show={this.props.showAddRoomModal} 
           onClose={this.handleAddRoomModalClose} 
@@ -39,6 +40,13 @@ class Lobby extends Component {
       </div>
     )
   }
+}
+
+Lobby.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  showAddRoomModal: PropTypes.bool.isRequired,
+  setShowAddRoomModal: PropTypes.func.isRequired,
+  getRoomsFromServer: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {

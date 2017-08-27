@@ -4,7 +4,7 @@ const roomSchema = mongoose.Schema({
   title: { type: String, required: true },
   createBy: { type: String, required: true },
   createAt: {type: Date, default: Date.now },
-  userGroup: { type: [String], required: true },
+  members: { type: [String], required: true },
   messages: [
     {
       createBy: { type: String, required: true },

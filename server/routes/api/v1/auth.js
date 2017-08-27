@@ -12,7 +12,7 @@ router.post('/', (req, res, next) => {
 
   setTimeout(() => {
     User.findOne({ username: username }, (err, user) => {
-      if (err) { next(err) }
+      if (err) { return next(err) }
       if (user) {
         user.checkPassword(password)
           .then((isMatch) => {

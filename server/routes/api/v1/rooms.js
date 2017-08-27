@@ -9,8 +9,18 @@ router.use(authenticate)
 router.get('/', (req, res, next) => {
   setTimeout(() => {
     Room.find({}, (err, rooms) => {
-      if (err) { next(err) }
-      res.json({ rooms })
+      if (err) { return next(err) }
+      const cleanerRooms = rooms.map((room) => {
+        return {
+          id: room._id,
+          title: room.title,
+          createBy: room.createBy,
+          createAt: room.createAt,
+          members: room.members,
+          messages: room.messages,
+        }
+      })
+      res.json({ rooms: cleanerRooms })
     })
   }, 1000)
 })
@@ -22,7 +32,7 @@ router.post('/', (req, res, next) => {
   const newRoom = new Room({
     title,
     createBy,
-    userGroup: [ createBy ],
+    members: [ createBy ],
     messages: []
   })
 

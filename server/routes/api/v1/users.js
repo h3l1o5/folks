@@ -8,7 +8,7 @@ router.post('/', (req, res, next) => {
 
   setTimeout(() => {
     User.findOne({$or: [{username: req.body.username}, {email: req.body.email}]}, (err, user) => {
-      if (err) { next(err) }
+      if (err) { return next(err) }
       if (user) {
         const error = {}
         if (user.username === req.body.username) {

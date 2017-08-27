@@ -5,8 +5,9 @@
   width: 100%;
   position: fixed;
   top: 0;
+  z-index: 10;
   background-color: #303481;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.46);
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   grid-template-areas: ". brand add"
@@ -18,8 +19,6 @@
   font-weight: bold;
   padding-top: 15px;
   color: #D6E6F2;
-  width: fit-content;
-  margin: 0 auto;
   text-align: center;
   grid-area: brand;
 }
