@@ -33,7 +33,6 @@ class RoomCardList extends Component {
   }
 
   handlEnterRoom = (roomId) => {
-    this.props.enterRoom(roomId)
     this.context.router.history.push(`/app/room/${roomId}`)
   }
 

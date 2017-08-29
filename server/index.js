@@ -1,11 +1,15 @@
 const express = require('express')
+const http = require('http')
 const path = require('path')
 const bodyParser = require('body-parser')
 const logger = require('morgan')
 const mongoose = require('mongoose')
 const app = express()
+const server = http.createServer(app)
+const io = require('socket.io').listen(server)
 
 const apiRoute = require('./routes/api/v1')
+const socket = require('./socket')(io)
 
 // db
 mongoose.Promise = global.Promise
@@ -39,6 +43,6 @@ app.use((err, req, res, next) => {
 })
 
 const port = process.env.PORT || 3001
-app.listen(port, () => {
+server.listen(port, () => {
   console.log('\nserver listening on port ' + port + '\n')
 })

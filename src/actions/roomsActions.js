@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { SET_ROOM_LIST, ADD_MEMBER } from '../actions/types'
+import { SET_ROOM_LIST, ADD_MEMBER, ADD_MESSAGE } from '../actions/types'
 
 const getRoomsFromServer = () => (dispatch) => {
 
@@ -34,8 +34,19 @@ const addMember = (roomId, username) => (dispatch) => {
   .catch((err) => console.log(err))
 }
 
+const addMessage = (roomId, createBy, content) => (dispatch) => {
+  dispatch({
+    type: ADD_MESSAGE,
+    roomId,
+    content,
+    createBy,
+    createAt: Date.now()
+  })
+}
+
 export {
   getRoomsFromServer,
   setRoomsList,
-  addMember
+  addMember,
+  addMessage
 }
