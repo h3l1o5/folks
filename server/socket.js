@@ -14,12 +14,19 @@ exports = module.exports = (io) => {
     })
 
     socket.on('message', (data) => {
-      socket.broadcast.to(data.roomId).emit('new message', { createBy: data.user.username, content: data.content })
+      console.log(data.createAt)
+      socket.broadcast.to(data.roomId).emit('new message', { 
+        id: data.messageId,
+        createBy: data.createBy, 
+        createAt: data.createAt, 
+        content: data.content 
+      })
       Room.findById(data.roomId, (err, room) => {
         if (err) { return socket.emit('error', err) }
         const newMessage = {
-          createBy: data.user.username,
-          createAt: Date.now(),
+          id: data.messageId,
+          createBy: data.createBy,
+          createAt: data.createAt,
           content: data.content
         }
         room.messages.push(newMessage)

@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import io from 'socket.io-client'
 
-import { enterRoom, leaveRoom } from '../actions/roomActions'
-import { addMessage } from '../actions/roomsActions'
+import { enterRoom, leaveRoom } from '../actions/currentRoomActions'
+import { sendMessage, receiveMessage } from '../actions/currentRoomActions'
 
 import Dialog from 'material-ui/Dialog'
 import AppBar from 'material-ui/AppBar'
@@ -34,13 +34,13 @@ class Room extends Component {
   }
 
   componentWillUnmount() {
-    this.props.room.socket.close()
-    this.props.leaveRoom(this.props.room.currentRoomId, this.props.room.socket)
+    this.props.currentRoom.socket.close()
+    this.props.leaveRoom(this.props.currentRoom.id, this.props.currentRoom.socket)
   }
 
   initialSocket = (socket) => {
     socket.on('new message', (message) => {
-      this.props.addMessage(this.props.room.currentRoomId, message.createBy, message.content)
+      this.props.receiveMessage(message.id, message.createBy, message.createAt, message.content)
     })
   }
 
@@ -56,19 +56,16 @@ class Room extends Component {
   }
 
   handleSubmit = () => {
-    this.props.room.socket.emit('message', {
-      roomId: this.props.room.currentRoomId,
-      user: this.props.user,
-      content: this.state.messageContent
-    })
-    this.props.addMessage(this.props.room.currentRoomId, this.props.user.username, this.state.messageContent)
+    const { id, socket } = this.props.currentRoom
+    this.props.sendMessage(id, socket, this.props.user.username, this.state.messageContent)
+    this.setState({ messageContent: '' })
   }
 
   render() {
-    const currentRoom = _.find(this.props.rooms, { 'id': this.props.match.params.roomId })
+    const currentRoom = this.props.currentRoom
     return (
       <div>
-        {currentRoom &&
+        {currentRoom.id &&
           <Dialog
             fullScreen
             open={this.state.open}
@@ -93,7 +90,7 @@ class Room extends Component {
             <div className="messageForm">
               <input 
                 type="text" 
-                value={this.state.message} 
+                value={this.state.messageContent} 
                 placeholder={`Message #${currentRoom.title}`}
                 onChange={(e) => this.setState({ messageContent: e.target.value })} 
               />
@@ -109,10 +106,13 @@ class Room extends Component {
 }
 
 Room.propTypes = {
-  room: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  currentRoom: PropTypes.object.isRequired,
   rooms: PropTypes.array.isRequired,
   enterRoom: PropTypes.func.isRequired,
   leaveRoom: PropTypes.func.isRequired,
+  sendMessage: PropTypes.func.isRequired,
+  receiveMessage: PropTypes.func.isRequired,
 }
 
 Room.contextTypes = {
@@ -122,9 +122,9 @@ Room.contextTypes = {
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
-    room: state.room,
+    currentRoom: state.currentRoom,
     rooms: state.rooms
   }
 }
 
-export default connect(mapStateToProps, { enterRoom, leaveRoom, addMessage })(Room)
+export default connect(mapStateToProps, { enterRoom, leaveRoom, sendMessage, receiveMessage })(Room)

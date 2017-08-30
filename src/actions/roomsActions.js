@@ -34,19 +34,8 @@ const addMember = (roomId, username) => (dispatch) => {
   .catch((err) => console.log(err))
 }
 
-const addMessage = (roomId, createBy, content) => (dispatch) => {
-  dispatch({
-    type: ADD_MESSAGE,
-    roomId,
-    content,
-    createBy,
-    createAt: Date.now()
-  })
-}
-
 export {
   getRoomsFromServer,
   setRoomsList,
   addMember,
-  addMessage
 }

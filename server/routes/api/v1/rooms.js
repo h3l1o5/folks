@@ -16,7 +16,6 @@ router.get('/', (req, res, next) => {
         createBy: room.createBy,
         createAt: room.createAt,
         members: room.members,
-        messages: room.messages,
       }
     })
     res.json({ rooms: cleanerRooms })

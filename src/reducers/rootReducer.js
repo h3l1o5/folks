@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux'
 
 import auth from './auth'
-import room from './room'
+import currentRoom from './currentRoom'
 import rooms from './rooms'
 import lobby from './lobby'
 
 export default combineReducers({
   auth,
-  room,
+  currentRoom,
   rooms,
   lobby
 })

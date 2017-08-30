@@ -6,7 +6,6 @@ import _ from 'lodash'
 
 import RoomCard from './RoomCard'
 import { getRoomsFromServer, addMember } from '../actions/roomsActions'
-import { enterRoom } from '../actions/roomActions'
 
 import './RoomCardList.css'
 
@@ -79,4 +78,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { getRoomsFromServer, addMember, enterRoom })(RoomCardList)
+export default connect(mapStateToProps, { getRoomsFromServer, addMember })(RoomCardList)
