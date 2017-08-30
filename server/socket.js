@@ -14,7 +14,6 @@ exports = module.exports = (io) => {
     })
 
     socket.on('message', (data) => {
-      console.log(data.createAt)
       socket.broadcast.to(data.roomId).emit('new message', { 
         id: data.messageId,
         createBy: data.createBy, 
@@ -31,6 +30,7 @@ exports = module.exports = (io) => {
         }
         room.messages.push(newMessage)
         room.save()
+            .then(() => {})
             .catch((err) => { socket.emit('error', err) })
       })
     })

@@ -8,10 +8,19 @@ class RoomCard extends Component {
   render() {
     return (
       <div className="roomCard">
-        <div className="info" onClick={() => this.props.onEnter(this.props.id)} style={{cursor: 'pointer'}}>
-          <h3>{this.props.title}</h3>
-          <h5>{this.props.createBy}</h5>
-          <h5>{this.props.createAt}</h5>
+        <div className="main" onClick={() => this.props.onEnter(this.props.id)}>
+          <div className="picture">
+            TODO
+          </div>
+          <div className="info">
+            <div className="header">
+              <div className="title">{this.props.title}</div>
+              <div className="createBy">{this.props.createBy}</div>
+            </div>
+            <div className="TBD">
+              TODO
+            </div>
+          </div>
         </div>
         <div className="footer">
           <div className="joinButton">

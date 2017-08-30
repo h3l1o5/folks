@@ -37,7 +37,7 @@ class RoomCardList extends Component {
 
   render() {
     const rooms = this.props.rooms.map((room) => {
-      const dateFormate = moment(new Date(room.createAt)).format('YYYY-M-D, h:mm:ss a')
+      const dateFormate = moment(Number(room.createAt)).format('YYYY-M-D, h:mm:ss a')
       const role = this.checkRole(room)
       return (
         <RoomCard 

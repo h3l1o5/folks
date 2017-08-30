@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { SET_ROOM_LIST, ADD_MEMBER, ADD_MESSAGE } from '../actions/types'
+import { SET_ROOM_LIST, ADD_MEMBER } from '../actions/types'
 
 const getRoomsFromServer = () => (dispatch) => {
 

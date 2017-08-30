@@ -1,0 +1,30 @@
+.messageForm {
+  background-color: red;
+  height: 50px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 30fr 1fr;
+}
+
+.messageForm > input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.messageForm > .sendMessageButton {
+  text-align: right;
+  border: none;
+  outline: none;
+  padding-right: 15px;
+  background-color: #fff;
+}
+
+.messageForm > .sendMessageButton > * {
+  cursor: pointer;
+  color: #3F51B5;
+}

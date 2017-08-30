@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
-import { Loader, Dimmer } from 'semantic-ui-react'
 import RoomCardList from './RoomCardList'
 import AddRoomModal from './AddRoomModal'
 import { setShowAddRoomModal } from '../actions/lobbyActions'

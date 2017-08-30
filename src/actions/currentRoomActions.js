@@ -48,7 +48,7 @@ const getMessagesFromServer = (roomId) => (dispatch) => {
 
 const sendMessage = (roomId, socket, createBy, content) => (dispatch) => {
   const messageId = uuid.v4()
-  const createAt = Date.now().toString
+  const createAt = Date.now().toString()
   socket.emit('message', {
     roomId,
     messageId,

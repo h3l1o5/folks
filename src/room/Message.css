@@ -1,0 +1,33 @@
+.message {
+  width: 100%;
+  padding: 5px 0;
+  display: grid;
+  grid-template-columns: 1fr 90fr;
+}
+
+.message > .avatar {
+  width: 35px;
+  height: 35px;
+  margin-top: 5px;
+  border-radius: 10%;
+}
+
+.message > .body {
+  margin-left: 5px;
+}
+
+.message > .body > .header {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.message > .body > .header > span {
+  font-size: 10px;
+  font-weight: normal;
+  color: gray;
+}
+
+.message > .body > .content {
+  width: 100%;
+  word-break: break-all;  
+}

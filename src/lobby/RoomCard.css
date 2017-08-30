@@ -1,29 +1,76 @@
 .roomCard {
   background-color: white;
   height: 200px;
+  max-height: 200px;
   width: 100%;
-  position: relative;
   margin-top: 8px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.46); 
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.26); 
   display: grid;
-  grid-template-rows: 9fr 1fr 1fr;
+  grid-template-rows: 4fr 1fr;
 }
 
 .roomCard > * {
   margin: 0;
-  padding: 5px;
 }
 
-.roleLabel {
-  width: fit-content;
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
+.roomCard > .main {
+  max-width: 100%;
+  max-height: 100%;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 2fr 3fr auto;
 }
 
-.joinButton {
+.roomCard > .main > .picture {
+  background-color: lightcoral;
+  margin: 5px;
+  border-radius: 5%;
+}
+
+.roomCard > .main > .info {
+  max-width: 100%;
+  max-height: 100%;
+  margin: 5px 0;
+  display: grid;
+  grid-template-rows: 2fr 3fr auto;
+}
+
+.roomCard > .main > .info > .header {
+  overflow: hidden;
+  padding-top: 5px;
+}
+
+.roomCard > .main > .info > .header > .title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.roomCard > .main > .info > .header > .createBy {
+  color: gray;
+}
+
+.roomCard > .main > .info > .TBD {
+  margin-right: 5px; 
+  background-color: lightcyan;
+}
+
+.roomCard > .footer {
+  padding-top: 5px;
+  border-top: 1px solid lightgray;
+  position: relative;
+}
+
+.roomCard > .footer > .joinButton {
   width: fit-content;
   position: absolute;
-  bottom: 5px;
   right: 5px;
+}
+
+@media screen and (min-width: 480px){
+  .roomCard > .main {
+    grid-template-columns: 2fr 5fr; 
+  }
 }
