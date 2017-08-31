@@ -1,25 +1,31 @@
-import React, { Component } from 'react'
-import moment from 'moment'
+import React from "react";
+import PropTypes from "prop-types";
+import moment from "moment";
 
-import './Message.css'
+import "./Message.css";
 
-class Message extends Component {
-  render() {
-    const { createBy, createAt, content } = this.props
-    const formattedDate = moment(Number(createAt)).format("YYYY-MM-DD // h:mm:ss a")
-    const randomAvatarColor = '#'+Math.floor(Math.random()*16777215).toString(16);
-    return (
-      <div className="message">
-        <div className="avatar" style={{'backgroundColor': '#654321' }}></div>
-        <div className="body">
-          <div className="header">{createBy} <span>{formattedDate}</span></div>
-          <div className="content">
-            {content}
-          </div>
+const Message = props => {
+  const { createBy, createAt, content } = props;
+  const formattedDate = moment(Number(createAt)).format(
+    "YYYY-MM-DD // h:mm:ss a",
+  );
+  return (
+    <div className="message">
+      <div className="avatar" style={{ backgroundColor: "#654321" }} />
+      <div className="body">
+        <div className="header">
+          {createBy} <span>{formattedDate}</span>
         </div>
+        <div className="content">{content}</div>
       </div>
-    )
-  }
-}
+    </div>
+  );
+};
 
-export default Message
+Message.propTypes = {
+  createBy: PropTypes.string.isRequired,
+  createAt: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+};
+
+export default Message;

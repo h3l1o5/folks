@@ -1,20 +1,15 @@
-import { SET_CURRENT_USER } from '../actions/types'
-import setAuthorizationToken from '../utils/setAuthorizationToken'
+import { SET_CURRENT_USER } from "../actions/types";
+import setAuthorizationToken from "../utils/setAuthorizationToken";
 
-const logout = () => (dispatch) => {
-  localStorage.removeItem('jwt')
-  setAuthorizationToken(false)
-  dispatch(setCurrentUser({}))
-}
-
-const setCurrentUser = (user) => {
-  return {
+const setCurrentUser = user => ({
     type: SET_CURRENT_USER,
-    user
-  }
-}
+    user,
+  });
 
-export {
-  logout,
-  setCurrentUser
-}
+const logout = () => dispatch => {
+  localStorage.removeItem("jwt");
+  setAuthorizationToken(false);
+  dispatch(setCurrentUser({}));
+};
+
+export { logout, setCurrentUser };
