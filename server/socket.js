@@ -1,4 +1,5 @@
 const Room = require("./models/Room")
+const User = require("./models/User")
 const uuid = require("uuid")
 
 module.exports = io => {
@@ -32,6 +33,26 @@ module.exports = io => {
         }
         room.messages.push(newMessage)
         room
+          .save()
+          .then(() => {})
+          .catch(err => {
+            socket.emit("error", err)
+          })
+      })
+    })
+
+    socket.on("position", data => {
+      socket.broadcast.to(data.roomId).emit("someone moved", {
+        username: data.username,
+        position: data.position,
+      })
+      User.findOne({ username: data.username }, (err, user) => {
+        if (err) {
+          return socket.emit("error", err)
+        }
+        console.log(user)
+        user.lastPosition = data.position
+        user
           .save()
           .then(() => {})
           .catch(err => {

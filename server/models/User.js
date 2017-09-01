@@ -8,6 +8,10 @@ const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   createAt: { type: Date, default: Date.now },
+  lastPosition: {
+    lat: { type: String, default: null },
+    lng: { type: String, default: null },
+  },
 })
 
 userSchema.methods.checkPassword = function(guess) {

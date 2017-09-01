@@ -35,7 +35,7 @@ const RoomCard = props => (
           <Button
             color="teal"
             size="mini"
-            onClick={() => props.onJoin(this.props.id)}
+            onClick={() => props.onJoin(props.id)}
           >
             JOIN
           </Button>

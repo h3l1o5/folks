@@ -10,6 +10,7 @@ import {
   leaveRoom,
   sendMessage,
   receiveMessage,
+  receivePosition,
 } from '../actions/currentRoomActions'
 import Header from './Header'
 import Map from './Map'
@@ -48,6 +49,9 @@ class Room extends Component {
         message.createAt,
         message.content,
       )
+    })
+    socket.on('someone moved', data => {
+      this.props.receivePosition(data.username, data.position)
     })
   }
 
@@ -105,6 +109,7 @@ Room.propTypes = {
   leaveRoom: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
   receiveMessage: PropTypes.func.isRequired,
+  receivePosition: PropTypes.func.isRequired,
 }
 
 Room.contextTypes = {
@@ -122,4 +127,5 @@ export default connect(mapStateToProps, {
   leaveRoom,
   sendMessage,
   receiveMessage,
+  receivePosition,
 })(Room)

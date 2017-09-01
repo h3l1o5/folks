@@ -1,7 +1,12 @@
 import axios from 'axios'
 import uuid from 'uuid'
 
-import { SET_CURRENT_ROOM, UPDATE_MESSAGES, ADD_MESSAGE } from './types'
+import {
+  SET_CURRENT_ROOM,
+  UPDATE_MESSAGES,
+  ADD_MESSAGE,
+  UPDATE_POSITION,
+} from './types'
 
 const enterRoom = (roomId, socket) => dispatch => {
   socket.emit('room', { roomId })
@@ -86,10 +91,31 @@ const receiveMessage = (messageId, createBy, createAt, content) => dispatch => {
   )
 }
 
+const updatePosition = (username, position) => ({
+  type: UPDATE_POSITION,
+  username,
+  position,
+})
+
+const sendPosition = (room, username, position) => dispatch => {
+  room.socket.emit('position', {
+    roomId: room.id,
+    username,
+    position,
+  })
+  dispatch(updatePosition(username, position))
+}
+
+const receivePosition = (username, position) => dispatch => {
+  dispatch(updatePosition(username, position))
+}
+
 export {
   enterRoom,
   leaveRoom,
   getMessagesFromServer,
   sendMessage,
   receiveMessage,
+  sendPosition,
+  receivePosition,
 }

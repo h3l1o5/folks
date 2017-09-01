@@ -1,40 +1,56 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import _ from 'lodash'
+
+import { sendPosition } from '../actions/currentRoomActions'
 
 import './Map.css'
 
 const GettingStartedGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
-    defaultZoom={10}
-    defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
-    center={props.currentLocation}
+    defaultZoom={8}
+    defaultCenter={{ lat: 23.5, lng: 121.0 }}
     onClick={props.onMapClick}
     options={{ minZoom: 3 }}
   >
-    <Marker position={props.currentLocation} />
+    {props.markers.map(marker => (
+      <Marker
+        position={{
+          lat: Number(marker.lastPosition.lat),
+          lng: Number(marker.lastPosition.lng),
+        }}
+      />
+    ))}
   </GoogleMap>
 ))
 
 class Map extends Component {
   state = {
-    currentLocation: {
+    currentPosition: {
       lat: 0,
       lng: 0,
     },
   }
 
   componentDidMount() {
+    const { currentRoom, user, sendPosition } = this.props
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const currentLocation = {
+      this.watchPos = navigator.geolocation.watchPosition(position => {
+        const currentPosition = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         }
-        this.setState({ currentLocation })
+        this.setState({ currentPosition })
+        sendPosition(currentRoom, user.username, currentPosition)
       })
     }
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchPos)
   }
 
   render() {
@@ -44,12 +60,23 @@ class Map extends Component {
         mapElement={<div className="mapElement" />}
         onMapLoad={_.noop}
         onMapClick={_.noop}
-        markers={[]}
+        markers={this.props.currentRoom.members}
         onMarkerRightClick={_.noop}
-        currentLocation={this.state.currentLocation}
+        currentPosition={this.state.currentPosition}
       />
     )
   }
 }
 
-export default Map
+Map.propTypes = {
+  currentRoom: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  sendPosition: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = state => ({
+  currentRoom: state.currentRoom,
+  user: state.auth.user,
+})
+
+export default connect(mapStateToProps, { sendPosition })(Map)

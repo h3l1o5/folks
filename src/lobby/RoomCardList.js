@@ -60,8 +60,8 @@ RoomCardList.contextTypes = {
 }
 
 RoomCardList.propTypes = {
-  rooms: PropTypes.arrayOf.isRequired,
-  user: PropTypes.shape.isRequired,
+  rooms: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
   getRoomsFromServer: PropTypes.func.isRequired,
   addMember: PropTypes.func.isRequired,
 }

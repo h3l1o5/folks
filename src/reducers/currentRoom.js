@@ -1,4 +1,9 @@
-import { SET_CURRENT_ROOM, ADD_MESSAGE } from '../actions/types'
+import _ from 'lodash'
+import {
+  SET_CURRENT_ROOM,
+  ADD_MESSAGE,
+  UPDATE_POSITION,
+} from '../actions/types'
 
 const initialState = {
   id: null,
@@ -36,6 +41,24 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         messages: newMessages,
+      }
+    }
+    case UPDATE_POSITION: {
+      const targetMemberIndex = _.findIndex(state.members, {
+        username: action.username,
+      })
+      const targetMember = state.members[targetMemberIndex]
+      const newMembers = [
+        ...state.members.slice(0, targetMemberIndex),
+        {
+          ...targetMember,
+          lastPosition: action.position,
+        },
+        ...state.members.slice(targetMemberIndex + 1, state.members.length),
+      ]
+      return {
+        ...state,
+        members: newMembers,
       }
     }
     default:
