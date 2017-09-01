@@ -11,9 +11,9 @@ import {
   sendMessage,
   receiveMessage,
 } from "../actions/currentRoomActions";
-import MessageList from "./MessageList";
-import MessageForm from "./MessageForm";
 import Header from "./Header";
+import Map from "./Map";
+import ChatRoom from "./ChatRoom";
 
 import "./Room.css";
 
@@ -22,7 +22,7 @@ class Room extends Component {
     super(props);
     this.state = {
       open: true,
-      messageContent: "",
+      showMap: false,
     };
   }
 
@@ -68,6 +68,10 @@ class Room extends Component {
     );
   };
 
+  handleShowMap = showMap => {
+    this.setState({ showMap });
+  };
+
   render() {
     const currentRoom = this.props.currentRoom;
     return (
@@ -80,13 +84,18 @@ class Room extends Component {
         >
           <Header
             title={currentRoom.title}
+            showMap={this.state.showMap}
             onCloseButtonClick={this.handleRoomClose}
+            onMapSwitherClick={this.handleShowMap}
           />
-          {currentRoom.id && <MessageList messages={currentRoom.messages} />}
-          <MessageForm
-            placeholder={`Message #${currentRoom.title}`}
-            onSubmit={this.handleSubmit}
-          />
+          {this.state.showMap ? (
+            <Map />
+          ) : (
+            <ChatRoom
+              currentRoom={currentRoom}
+              handleSubmit={this.handleSubmit}
+            />
+          )}
         </Dialog>
       </div>
     );

@@ -1,0 +1,7 @@
+.containerElement {
+  height: calc(100% - 56px);
+}
+
+.mapElement {
+  height: 100%;
+}
