@@ -1,28 +1,28 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import * as ReactDOM from "react-dom";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import * as ReactDOM from 'react-dom'
 
-import Message from "./Message";
+import Message from './Message'
 
-import "./MessageList.css";
+import './MessageList.css'
 
 class MessageList extends Component {
   componentDidMount() {
-    this.scrollToBottom();
+    this.scrollToBottom()
   }
 
   componentDidUpdate() {
-    this.scrollToBottom();
+    this.scrollToBottom()
   }
 
   scrollToBottom = () => {
-    const { messageList } = this.refs;
-    const scrollHeight = messageList.scrollHeight;
-    const height = messageList.clientHeight;
-    const maxScrollTop = scrollHeight - height;
+    const { messageList } = this.refs
+    const scrollHeight = messageList.scrollHeight
+    const height = messageList.clientHeight
+    const maxScrollTop = scrollHeight - height
     ReactDOM.findDOMNode(messageList).scrollTop =
-      maxScrollTop > 0 ? maxScrollTop : 0;
-  };
+      maxScrollTop > 0 ? maxScrollTop : 0
+  }
 
   render() {
     return (
@@ -36,12 +36,12 @@ class MessageList extends Component {
           />
         ))}
       </div>
-    );
+    )
   }
 }
 
 MessageList.propTypes = {
-  messages: PropTypes.arrayOf.isRequired,
-};
+  messages: PropTypes.array.isRequired,
+}
 
-export default MessageList;
+export default MessageList

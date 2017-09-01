@@ -1,22 +1,22 @@
-import axios from "axios";
+import axios from 'axios'
 
-import { SET_ROOM_LIST, ADD_MEMBER } from "../actions/types";
+import { SET_ROOM_LIST, ADD_MEMBER } from '../actions/types'
 
 const setRoomsList = rooms => ({
   type: SET_ROOM_LIST,
   rooms,
-});
+})
 
 const getRoomsFromServer = () => dispatch => {
   axios
-    .get("/api/v1/rooms")
+    .get('/api/v1/rooms')
     .then(res => {
-      dispatch(setRoomsList(res.data.rooms));
+      dispatch(setRoomsList(res.data.rooms))
     })
     .catch(err => {
-      console.log(err);
-    });
-};
+      console.log(err)
+    })
+}
 
 const addMember = (roomId, username) => dispatch => {
   axios
@@ -26,9 +26,9 @@ const addMember = (roomId, username) => dispatch => {
         type: ADD_MEMBER,
         roomId,
         username,
-      });
+      })
     })
-    .catch(err => console.log(err));
-};
+    .catch(err => console.log(err))
+}
 
-export { getRoomsFromServer, setRoomsList, addMember };
+export { getRoomsFromServer, setRoomsList, addMember }

@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
+import React from 'react'
+import PropTypes from 'prop-types'
+import moment from 'moment'
 
-import "./Message.css";
+import './Message.css'
 
 const Message = props => {
-  const { createBy, createAt, content } = props;
+  const { createBy, createAt, content } = props
   const formattedDate = moment(Number(createAt)).format(
-    "YYYY-MM-DD // h:mm:ss a",
-  );
+    'YYYY-MM-DD // h:mm:ss a',
+  )
   return (
     <div className="message">
-      <div className="avatar" style={{ backgroundColor: "#654321" }} />
+      <div className="avatar" style={{ backgroundColor: '#654321' }} />
       <div className="body">
         <div className="header">
           {createBy} <span>{formattedDate}</span>
@@ -19,13 +19,13 @@ const Message = props => {
         <div className="content">{content}</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 Message.propTypes = {
   createBy: PropTypes.string.isRequired,
   createAt: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-};
+}
 
-export default Message;
+export default Message

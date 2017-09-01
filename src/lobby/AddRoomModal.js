@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Modal, Header, Button, Icon, Input } from "semantic-ui-react";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Modal, Header, Button, Icon, Input } from 'semantic-ui-react'
 
 class AddRoomModal extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      title: "",
-    };
+      title: '',
+    }
   }
 
   render() {
@@ -24,7 +24,7 @@ class AddRoomModal extends Component {
             placeholder="Room Title"
             size="large"
             onChange={e => {
-              this.setState({ title: e.target.value });
+              this.setState({ title: e.target.value })
             }}
           />
         </Modal.Content>
@@ -36,14 +36,14 @@ class AddRoomModal extends Component {
             color="green"
             inverted
             onClick={() => {
-              this.props.onSubmit(this.state);
+              this.props.onSubmit(this.state)
             }}
           >
             <Icon name="checkmark" /> Create
           </Button>
         </Modal.Actions>
       </Modal>
-    );
+    )
   }
 }
 
@@ -51,6 +51,6 @@ AddRoomModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-};
+}
 
-export default AddRoomModal;
+export default AddRoomModal

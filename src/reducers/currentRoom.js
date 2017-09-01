@@ -7,11 +7,11 @@ const initialState = {
   createAt: null,
   members: null,
   messages: null,
-  socket: null
+  socket: null,
 }
 
 export default (state = initialState, action = {}) => {
-  switch(action.type) {
+  switch (action.type) {
     case SET_CURRENT_ROOM: {
       return {
         id: action.roomId,
@@ -20,7 +20,7 @@ export default (state = initialState, action = {}) => {
         createAt: action.createAt,
         members: action.members,
         messages: action.messages,
-        socket: action.socket
+        socket: action.socket,
       }
     }
     case ADD_MESSAGE: {
@@ -30,12 +30,12 @@ export default (state = initialState, action = {}) => {
           id: action.messageId,
           createBy: action.createBy,
           createAt: action.createAt,
-          content: action.content
-        }
-      ] 
+          content: action.content,
+        },
+      ]
       return {
         ...state,
-        messages: newMessages
+        messages: newMessages,
       }
     }
     default:

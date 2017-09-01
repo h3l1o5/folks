@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MessageList from "./MessageList";
-import MessageForm from "./MessageForm";
+import MessageList from './MessageList'
+import MessageForm from './MessageForm'
 
-import "./ChatRoom.css";
+import './ChatRoom.css'
 
 const ChatRoom = props => (
   <div className="ChatRoom">
@@ -16,14 +16,15 @@ const ChatRoom = props => (
       onSubmit={props.handleSubmit}
     />
   </div>
-);
+)
 
 ChatRoom.defaultProps = {
   currentRoom: {},
-};
+}
 
 ChatRoom.propTypes = {
-  currentRoom: PropTypes.shape,
-};
+  currentRoom: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+}
 
-export default ChatRoom;
+export default ChatRoom

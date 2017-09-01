@@ -6,15 +6,15 @@
   position: fixed;
   top: 0;
   z-index: 10;
-  background-color: #3F51B5;
+  background-color: #ff4081;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.36);
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  grid-template-areas: ". brand add"
+  grid-template-areas: ". brand add";
 }
 
 .brand {
-  font-family: "Gloria Hallelujah", cursive; 
+  font-family: "Gloria Hallelujah", cursive;
   font-size: 25px;
   font-weight: bold;
   padding-top: 15px;
@@ -37,7 +37,7 @@
 }
 
 .addRoom i:hover {
-  color: #E8EAF6;
+  color: #e8eaf6;
 }
 
 .addRoom i:active {

@@ -9,7 +9,7 @@ export default (state = initialState, action = {}) => {
     case SET_ADD_ROOM_MODAL_STATUS:
       return {
         ...state,
-        showAddRoomModal: action.show
+        showAddRoomModal: action.show,
       }
     default:
       return state

@@ -1,36 +1,36 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import axios from "axios";
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
-import RoomCardList from "./RoomCardList";
-import AddRoomModal from "./AddRoomModal";
-import { setShowAddRoomModal } from "../actions/lobbyActions";
-import { getRoomsFromServer } from "../actions/roomsActions";
+import RoomCardList from './RoomCardList'
+import AddRoomModal from './AddRoomModal'
+import { setShowAddRoomModal } from '../actions/lobbyActions'
+import { getRoomsFromServer } from '../actions/roomsActions'
 
-import "./Lobby.css";
+import './Lobby.css'
 
 class Lobby extends Component {
   state = {
     roomViewOpen: false,
-  };
+  }
 
   handleAddRoomModalClose = () => {
-    this.props.setShowAddRoomModal(false);
-  };
+    this.props.setShowAddRoomModal(false)
+  }
 
   handleAddRoomModalSubmit = info => {
     axios
-      .post("/api/v1/rooms", {
+      .post('/api/v1/rooms', {
         title: info.title,
       })
       .then(() => {
-        this.props.setShowAddRoomModal(false);
-        this.props.getRoomsFromServer();
+        this.props.setShowAddRoomModal(false)
+        this.props.getRoomsFromServer()
       })
-      .catch(err => console.log(err));
-  };
+      .catch(err => console.log(err))
+  }
 
   render() {
     return (
@@ -50,7 +50,7 @@ class Lobby extends Component {
           <RoomCardList />
         </ReactCSSTransitionGroup>
       </div>
-    );
+    )
   }
 }
 
@@ -58,13 +58,13 @@ Lobby.propTypes = {
   showAddRoomModal: PropTypes.bool.isRequired,
   setShowAddRoomModal: PropTypes.func.isRequired,
   getRoomsFromServer: PropTypes.func.isRequired,
-};
+}
 
 const mapStateToProps = state => ({
-    showAddRoomModal: state.lobby.showAddRoomModal,
-  });
+  showAddRoomModal: state.lobby.showAddRoomModal,
+})
 
 export default connect(mapStateToProps, {
   setShowAddRoomModal,
   getRoomsFromServer,
-})(Lobby);
+})(Lobby)

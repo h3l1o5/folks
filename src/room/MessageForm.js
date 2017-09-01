@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import Icon from "material-ui/Icon";
+import Icon from 'material-ui/Icon'
 
-import "./MessageForm.css";
+import './MessageForm.css'
 
 class MessageForm extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      messageContent: "",
-    };
+      messageContent: '',
+    }
   }
 
   handleSubmit = () => {
-    this.props.onSubmit(this.state.messageContent);
-    this.setState({ messageContent: "" });
-  };
+    this.props.onSubmit(this.state.messageContent)
+    this.setState({ messageContent: '' })
+  }
 
   render() {
     return (
@@ -33,17 +33,17 @@ class MessageForm extends Component {
           </span>
         </button>
       </div>
-    );
+    )
   }
 }
 
 MessageForm.defaultProps = {
-  placeholder: "",
-};
+  placeholder: '',
+}
 
 MessageForm.propTypes = {
   placeholder: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
-};
+}
 
-export default MessageForm;
+export default MessageForm

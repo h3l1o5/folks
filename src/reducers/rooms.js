@@ -8,22 +8,19 @@ export default (state = [], action = {}) => {
       return action.rooms
     }
     case ADD_MEMBER: {
-      const roomIndex = _.findIndex(state, { 'id': action.roomId })
+      const roomIndex = _.findIndex(state, { id: action.roomId })
       const targetRoom = state[roomIndex]
-        const newMembers = [
-          ...targetRoom.members,
-          action.username
-        ]
-        return [
-          ...state.slice(0, roomIndex),
-          {
-            ...targetRoom,
-            members: newMembers
-          },
-          ...state.slice(roomIndex + 1, state.length)
-        ]
+      const newMembers = [...targetRoom.members, action.username]
+      return [
+        ...state.slice(0, roomIndex),
+        {
+          ...targetRoom,
+          members: newMembers,
+        },
+        ...state.slice(roomIndex + 1, state.length),
+      ]
     }
     default:
-      return state;
+      return state
   }
-};
+}

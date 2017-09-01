@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { Button, Icon } from "semantic-ui-react";
-import "./RoomCard.css";
+import { Button, Icon } from 'semantic-ui-react'
+import './RoomCard.css'
 
 const RoomCard = props => (
   <div className="roomCard">
@@ -23,11 +23,11 @@ const RoomCard = props => (
     </div>
     <div className="footer">
       <div className="joinButton">
-        {props.role === "owner" ? (
+        {props.role === 'owner' ? (
           <Button disabled size="mini">
             <Icon name="users" />OWNER
           </Button>
-        ) : props.role === "member" ? (
+        ) : props.role === 'member' ? (
           <Button disabled size="mini">
             <Icon name="user" />MEMBER
           </Button>
@@ -43,7 +43,7 @@ const RoomCard = props => (
       </div>
     </div>
   </div>
-);
+)
 
 RoomCard.propTypes = {
   id: PropTypes.string.isRequired,
@@ -52,6 +52,6 @@ RoomCard.propTypes = {
   role: PropTypes.string.isRequired,
   onJoin: PropTypes.func.isRequired,
   onEnter: PropTypes.func.isRequired,
-};
+}
 
-export default RoomCard;
+export default RoomCard

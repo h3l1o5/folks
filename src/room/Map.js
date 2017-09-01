@@ -1,10 +1,8 @@
-/* eslint-disable */
+import React, { Component } from 'react'
+import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
+import _ from 'lodash'
 
-import React, { Component } from "react";
-import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-import _ from "lodash";
-
-import "./Map.css";
+import './Map.css'
 
 const GettingStartedGoogleMap = withGoogleMap(props => (
   <GoogleMap
@@ -15,12 +13,9 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     onClick={props.onMapClick}
     options={{ minZoom: 3 }}
   >
-    <Marker
-      onRightClick={() => props.onMarkerRightClick(index)}
-      position={props.currentLocation}
-    />
+    <Marker position={props.currentLocation} />
   </GoogleMap>
-));
+))
 
 class Map extends Component {
   state = {
@@ -28,7 +23,7 @@ class Map extends Component {
       lat: 0,
       lng: 0,
     },
-  };
+  }
 
   componentDidMount() {
     if (navigator.geolocation) {
@@ -36,9 +31,9 @@ class Map extends Component {
         const currentLocation = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
-        };
-        this.setState({ currentLocation });
-      });
+        }
+        this.setState({ currentLocation })
+      })
     }
   }
 
@@ -53,8 +48,8 @@ class Map extends Component {
         onMarkerRightClick={_.noop}
         currentLocation={this.state.currentLocation}
       />
-    );
+    )
   }
 }
 
-export default Map;
+export default Map

@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-import { setShowAddRoomModal } from "../actions/lobbyActions";
+import { setShowAddRoomModal } from '../actions/lobbyActions'
 
-import "./AppBar.css";
+import './AppBar.css'
 
 const AppBar = props => (
   <div className="appBar">
@@ -20,10 +20,10 @@ const AppBar = props => (
       </i>
     </div>
   </div>
-);
+)
 
 AppBar.propTypes = {
   setShowAddRoomModal: PropTypes.func.isRequired,
-};
+}
 
-export default connect(null, { setShowAddRoomModal })(AppBar);
+export default connect(null, { setShowAddRoomModal })(AppBar)
