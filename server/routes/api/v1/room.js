@@ -1,24 +1,23 @@
-const router = require("express").Router()
-const mongoose = require("mongoose")
+const router = require('express').Router()
 
-const authenticate = require("../../../middlewares/authenticate")
-const Room = require("../../../models/Room.js")
-const User = require("../../../models/User")
+const authenticate = require('../../../middlewares/authenticate')
+const Room = require('../../../models/Room.js')
+const User = require('../../../models/User')
 
 router.use(authenticate)
 
-router.get("/:roomId/", (req, res, next) => {
-  const roomId = req.params["roomId"]
+router.get('/:roomId/', (req, res, next) => {
+  const roomId = req.params.roomId
   Room.findById(roomId, (err, room) => {
     if (err) {
       return next(err)
     }
     if (!room) {
-      res.status(404).json({ error: "room not found" })
+      res.status(404).json({ error: 'room not found' })
     } else {
       User.find(
         { username: { $in: room.members } },
-        "username lastPosition",
+        'username lastPosition',
         (err, users) => {
           if (err) {
             return next(err)
@@ -32,14 +31,14 @@ router.get("/:roomId/", (req, res, next) => {
             messages: room.messages,
           }
           res.json(cleanerRoom)
-        },
+        }
       )
     }
   })
 })
 
-router.post("/:roomId/members", (req, res, next) => {
-  const roomId = req.params["roomId"]
+router.post('/:roomId/members', (req, res, next) => {
+  const roomId = req.params.roomId
   const newMember = req.body.username
 
   Room.findById(roomId, (err, room) => {
@@ -47,7 +46,7 @@ router.post("/:roomId/members", (req, res, next) => {
       return next(err)
     }
     if (!room) {
-      res.status(404).json({ error: "room not found" })
+      res.status(404).json({ error: 'room not found' })
     } else {
       room.members.push(newMember)
       room

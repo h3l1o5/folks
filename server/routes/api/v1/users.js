@@ -1,10 +1,10 @@
-const express = require("express")
-const path = require("path")
+const express = require('express')
+
 const router = express.Router()
 
-const User = require("../../../models/User")
+const User = require('../../../models/User')
 
-router.post("/", (req, res, next) => {
+router.post('/', (req, res, next) => {
   setTimeout(() => {
     User.findOne(
       { $or: [{ username: req.body.username }, { email: req.body.email }] },
@@ -15,12 +15,12 @@ router.post("/", (req, res, next) => {
         if (user) {
           const error = {}
           if (user.username === req.body.username) {
-            error.code = "USERNAME"
-            error.message = "This username is already existed"
+            error.code = 'USERNAME'
+            error.message = 'This username is already existed'
             res.status(403).json({ error })
           } else {
-            error.code = "EMAIL"
-            error.message = "This email is already existed"
+            error.code = 'EMAIL'
+            error.message = 'This email is already existed'
             res.status(403).json({ error })
           }
         } else {
@@ -39,7 +39,7 @@ router.post("/", (req, res, next) => {
               next(err)
             })
         }
-      },
+      }
     )
   }, 1000)
 })

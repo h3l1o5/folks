@@ -1,5 +1,5 @@
-const mongoose = require("mongoose")
-const bcrypt = require("bcrypt-nodejs")
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt-nodejs')
 
 const SALT_FACTOR = 10
 
@@ -26,9 +26,9 @@ userSchema.methods.checkPassword = function(guess) {
 }
 
 const noop = () => {}
-userSchema.pre("save", function(done) {
+userSchema.pre('save', function(done) {
   const user = this
-  if (!user.isModified("password")) {
+  if (!user.isModified('password')) {
     return done()
   }
   bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
@@ -45,4 +45,4 @@ userSchema.pre("save", function(done) {
   })
 })
 
-module.exports = mongoose.model("Users", userSchema)
+module.exports = mongoose.model('Users', userSchema)

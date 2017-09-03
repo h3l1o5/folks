@@ -20,7 +20,7 @@
       {
         "singleQuote": true,
         "semi": false,
-        "trailingComma": "all",
+        "trailingComma": "es5",
         "bracketSpacing": true
       }
     ],
@@ -31,6 +31,8 @@
     "react/no-find-dom-node": 0,
     "react/forbid-prop-types": 0,
     "no-nested-ternary": 0,
-    "no-shadow": 0
+    "no-shadow": 0,
+    "consistent-return": 0,
+    "func-names": 0
   }
 }

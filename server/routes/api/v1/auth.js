@@ -1,17 +1,17 @@
-const express = require("express")
-const path = require("path")
-const jwt = require("jsonwebtoken")
+const express = require('express')
+const jwt = require('jsonwebtoken')
+
 const router = express.Router()
 
-const User = require(path.resolve("server", "models", "User.js"))
-const config = require("../../../config")
+const User = require('../../../models/User')
+const config = require('../../../config')
 
-router.post("/", (req, res, next) => {
+router.post('/', (req, res, next) => {
   const username = req.body.username
   const password = req.body.password
 
   setTimeout(() => {
-    User.findOne({ username: username }, (err, user) => {
+    User.findOne({ username }, (err, user) => {
       if (err) {
         return next(err)
       }
@@ -25,18 +25,18 @@ router.post("/", (req, res, next) => {
                   id: user._id,
                   username: user.username,
                 },
-                config.jwtSecret,
+                config.jwtSecret
               )
               res.json({ token })
             } else {
-              res.status(403).json({ error: "Incorrect username or password" })
+              res.status(403).json({ error: 'Incorrect username or password' })
             }
           })
           .catch(err => {
             next(err)
           })
       } else {
-        res.status(403).json({ error: "Incorrect username or password" })
+        res.status(403).json({ error: 'Incorrect username or password' })
       }
     })
   }, 1000)

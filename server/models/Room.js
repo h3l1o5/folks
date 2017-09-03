@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const roomSchema = mongoose.Schema({
   title: { type: String, required: true },
@@ -14,4 +14,4 @@ const roomSchema = mongoose.Schema({
   ],
 })
 
-module.exports = mongoose.model("Rooms", roomSchema)
+module.exports = mongoose.model('Rooms', roomSchema)
