@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import io from 'socket.io-client'
 
 import Dialog from 'material-ui/Dialog'
 import Slide from 'material-ui/transitions/Slide'
@@ -28,31 +27,24 @@ class Room extends Component {
   }
 
   componentDidMount() {
-    const socket = io()
-    this.initialSocket(socket)
-    this.props.enterRoom(this.props.match.params.roomId, socket)
+    const { socket, match, enterRoom } = this.props
+    if (socket) {
+      enterRoom(socket, match.params.roomId)
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.socket) {
+      const { socket, match, enterRoom } = this.props
+      enterRoom(socket, match.params.roomId)
+    }
   }
 
   componentWillUnmount() {
-    this.props.currentRoom.socket.close()
-    this.props.leaveRoom(
-      this.props.currentRoom.id,
-      this.props.currentRoom.socket,
-    )
-  }
-
-  initialSocket = socket => {
-    socket.on('new message', message => {
-      this.props.receiveMessage(
-        message.id,
-        message.createBy,
-        message.createAt,
-        message.content,
-      )
-    })
-    socket.on('someone moved', data => {
-      this.props.receivePosition(data.username, data.position)
-    })
+    const { socket, currentRoom, leaveRoom } = this.props
+    if (socket) {
+      leaveRoom(socket, currentRoom.id)
+    }
   }
 
   handleRoomClose = () => {
@@ -63,8 +55,8 @@ class Room extends Component {
   }
 
   handleSubmit = messageContent => {
-    const { id, socket } = this.props.currentRoom
-    this.props.sendMessage(id, socket, this.props.user.username, messageContent)
+    const { socket, currentRoom, user, sendMessage } = this.props
+    sendMessage(socket, currentRoom.id, user.username, messageContent)
   }
 
   handleShowMap = showMap => {
@@ -101,15 +93,18 @@ class Room extends Component {
   }
 }
 
+Room.defaultProps = {
+  socket: null,
+}
+
 Room.propTypes = {
   match: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  socket: PropTypes.object,
   currentRoom: PropTypes.object.isRequired,
   enterRoom: PropTypes.func.isRequired,
   leaveRoom: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
-  receiveMessage: PropTypes.func.isRequired,
-  receivePosition: PropTypes.func.isRequired,
 }
 
 Room.contextTypes = {
@@ -118,6 +113,7 @@ Room.contextTypes = {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
+  socket: state.auth.socket,
   currentRoom: state.currentRoom,
   rooms: state.rooms,
 })

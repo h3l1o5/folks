@@ -1,4 +1,5 @@
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const SET_SOCKET = 'SET_SOCKET'
 export const SET_ROOM_LIST = 'SET_ROOM_LIST'
 export const SET_ADD_ROOM_MODAL_STATUS = 'SET_ADD_ROOM_MODAL_STATUS'
 export const ADD_MEMBER = 'ADD_MEMBER'

@@ -10,12 +10,26 @@ module.exports = io => {
       console.log("a user leave")
     })
 
-    socket.on("room", data => {
+    socket.on("join room", data => {
+      // TODO: handle user join the room
+    })
+
+    socket.on("quit room", data => {
+      // TODO: handle user quit the room
+    })
+
+    socket.on("enter room", data => {
       socket.join(data.roomId)
+      console.log("a user enter room:" + data.roomId)
+    })
+
+    socket.on("leave room", data => {
+      socket.leave(data.roomId)
+      console.log("a user leave room:" + data.roomId)
     })
 
     socket.on("message", data => {
-      socket.broadcast.to(data.roomId).emit("new message", {
+      socket.broadcast.to(data.roomId).emit("message", {
         id: data.messageId,
         createBy: data.createBy,
         createAt: data.createAt,
@@ -42,7 +56,7 @@ module.exports = io => {
     })
 
     socket.on("position", data => {
-      socket.broadcast.to(data.roomId).emit("someone moved", {
+      socket.broadcast.to(data.roomId).emit("position", {
         username: data.username,
         position: data.position,
       })

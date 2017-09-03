@@ -1,10 +1,11 @@
 .roomCard {
-  background-color: white;
+  background-color: #fff;
   height: 200px;
   max-height: 200px;
   width: 100%;
   margin-top: 8px;
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.26); 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 2px;
   display: grid;
   grid-template-rows: 4fr 1fr;
 }
@@ -53,7 +54,7 @@
 }
 
 .roomCard > .main > .info > .TBD {
-  margin-right: 5px; 
+  margin-right: 5px;
   background-color: lightcyan;
 }
 
@@ -69,8 +70,8 @@
   right: 5px;
 }
 
-@media screen and (min-width: 480px){
+@media screen and (min-width: 480px) {
   .roomCard > .main {
-    grid-template-columns: 2fr 5fr; 
+    grid-template-columns: 2fr 5fr;
   }
 }

@@ -12,7 +12,6 @@ const initialState = {
   createAt: null,
   members: null,
   messages: null,
-  socket: null,
 }
 
 export default (state = initialState, action = {}) => {
@@ -25,7 +24,6 @@ export default (state = initialState, action = {}) => {
         createAt: action.createAt,
         members: action.members,
         messages: action.messages,
-        socket: action.socket,
       }
     }
     case ADD_MESSAGE: {

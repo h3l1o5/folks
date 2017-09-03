@@ -18,9 +18,10 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
   >
     {props.markers.map(marker => (
       <Marker
+        key={marker.username}
         position={{
-          lat: Number(marker.lastPosition.lat),
-          lng: Number(marker.lastPosition.lng),
+          lat: marker.lastPosition.lat,
+          lng: marker.lastPosition.lng,
         }}
       />
     ))}
@@ -36,7 +37,7 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    const { currentRoom, user, sendPosition } = this.props
+    const { socket, currentRoom, user, sendPosition } = this.props
     if (navigator.geolocation) {
       this.watchPos = navigator.geolocation.watchPosition(position => {
         const currentPosition = {
@@ -44,7 +45,7 @@ class Map extends Component {
           lng: position.coords.longitude,
         }
         this.setState({ currentPosition })
-        sendPosition(currentRoom, user.username, currentPosition)
+        sendPosition(socket, currentRoom.id, user.username, currentPosition)
       })
     }
   }
@@ -71,12 +72,14 @@ class Map extends Component {
 Map.propTypes = {
   currentRoom: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  socket: PropTypes.object.isRequired,
   sendPosition: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
   currentRoom: state.currentRoom,
   user: state.auth.user,
+  socket: state.auth.socket,
 })
 
 export default connect(mapStateToProps, { sendPosition })(Map)

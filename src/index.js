@@ -28,6 +28,7 @@ if (!localStorage.jwt) {
   // set jwt to all axios actions
   setAuthorizationToken(localStorage.jwt)
 
+  // set userinfo(decode from jwt) in store.auth.user
   store.dispatch(setCurrentUser(jwtDecode(localStorage.jwt)))
 
   ReactDOM.render(

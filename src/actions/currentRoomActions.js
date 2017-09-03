@@ -8,8 +8,8 @@ import {
   UPDATE_POSITION,
 } from './types'
 
-const enterRoom = (roomId, socket) => dispatch => {
-  socket.emit('room', { roomId })
+const enterRoom = (socket, roomId) => dispatch => {
+  socket.emit('enter room', { roomId })
   axios.get(`/api/v1/room/${roomId}`).then(res => {
     const room = res.data
     dispatch({
@@ -20,12 +20,11 @@ const enterRoom = (roomId, socket) => dispatch => {
       createAt: room.createAt,
       members: room.members,
       messages: room.messages,
-      socket,
     })
   })
 }
 
-const leaveRoom = (roomId, socket) => dispatch => {
+const leaveRoom = (socket, roomId) => dispatch => {
   socket.emit('leave room', { roomId })
   dispatch({
     type: SET_CURRENT_ROOM,
@@ -35,7 +34,6 @@ const leaveRoom = (roomId, socket) => dispatch => {
     createAt: null,
     members: null,
     messages: null,
-    socket: null,
   })
 }
 
@@ -60,7 +58,7 @@ const addMessage = message => {
   }
 }
 
-const sendMessage = (roomId, socket, createBy, content) => dispatch => {
+const sendMessage = (socket, roomId, createBy, content) => dispatch => {
   const messageId = uuid.v4()
   const createAt = Date.now().toString()
   socket.emit('message', {
@@ -97,9 +95,9 @@ const updatePosition = (username, position) => ({
   position,
 })
 
-const sendPosition = (room, username, position) => dispatch => {
-  room.socket.emit('position', {
-    roomId: room.id,
+const sendPosition = (socket, roomId, username, position) => dispatch => {
+  socket.emit('position', {
+    roomId,
     username,
     position,
   })

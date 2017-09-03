@@ -9,8 +9,8 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   createAt: { type: Date, default: Date.now },
   lastPosition: {
-    lat: { type: String, default: null },
-    lng: { type: String, default: null },
+    lat: { type: Number, default: null },
+    lng: { type: Number, default: null },
   },
 })
 

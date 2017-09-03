@@ -1,10 +1,11 @@
 import _ from 'lodash'
 
-import { SET_CURRENT_USER } from '../actions/types'
+import { SET_CURRENT_USER, SET_SOCKET } from '../actions/types'
 
 const initialState = {
   isAuthenticated: false,
   user: {},
+  socket: {},
 }
 
 export default (state = initialState, action = {}) => {
@@ -13,6 +14,12 @@ export default (state = initialState, action = {}) => {
       return {
         isAuthenticated: !_.isEmpty(action.user),
         user: action.user,
+        socket: action.socket,
+      }
+    case SET_SOCKET:
+      return {
+        ...state,
+        socket: action.socket,
       }
     default:
       return state
