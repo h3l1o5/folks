@@ -78,17 +78,6 @@ const sendMessage = (socket, roomId, createBy, content) => dispatch => {
   )
 }
 
-const receiveMessage = (messageId, createBy, createAt, content) => dispatch => {
-  dispatch(
-    addMessage({
-      messageId,
-      createBy,
-      createAt,
-      content,
-    }),
-  )
-}
-
 const updatePosition = (username, position) => ({
   type: UPDATE_POSITION,
   username,
@@ -104,16 +93,12 @@ const sendPosition = (socket, roomId, username, position) => dispatch => {
   dispatch(updatePosition(username, position))
 }
 
-const receivePosition = (username, position) => dispatch => {
-  dispatch(updatePosition(username, position))
-}
-
 export {
   enterRoom,
   leaveRoom,
   getMessagesFromServer,
+  addMessage,
   sendMessage,
-  receiveMessage,
+  updatePosition,
   sendPosition,
-  receivePosition,
 }

@@ -24,7 +24,12 @@
   background-color: #fff;
 }
 
-.messageForm > .sendMessageButton > * {
+.messageForm > .sendMessageButton > span {
   cursor: pointer;
-  color: #3F51B5;
+  color: #3f51b5;
+}
+
+.messageForm > .sendMessageButton > span:focus {
+  outline: none;
+  border: none;
 }

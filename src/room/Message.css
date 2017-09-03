@@ -29,5 +29,19 @@
 
 .message > .body > .content {
   width: 100%;
-  word-break: break-all;  
+  word-break: break-all;
+}
+
+.systemMessage {
+  background-color: #eceff1;
+  border-radius: 10px;
+  width: fit-content;
+  padding: 5px 10px;
+  margin: 5px auto;
+  text-align: center;
+  color: #78909c;
+}
+
+.systemMessage > .header {
+  font-size: 12px;
 }

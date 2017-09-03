@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import io from 'socket.io-client'
 
-import { getRoomsFromServer } from './actions/roomsActions'
 import { setSocket } from './actions/authActions'
-import { receiveMessage, receivePosition } from './actions/currentRoomActions'
+import { getRoomsFromServer, addMember } from './actions/roomsActions'
+import { updatePosition, addMessage } from './actions/currentRoomActions'
 import initSocket from './utils/initSocket'
 import AppBar from './appBar/AppBar'
 import routes from './routes'
@@ -26,10 +26,11 @@ class App extends Component {
 
   setSocketToStore = () => {
     const socket = io()
-    const { receiveMessage, receivePosition } = this.props
+    const { updatePosition, addMember, addMessage } = this.props
     const actions = {
-      receiveMessage,
-      receivePosition,
+      updatePosition,
+      addMember,
+      addMessage,
     }
     initSocket(socket, actions)
     this.props.setSocket(socket)
@@ -53,8 +54,9 @@ App.propTypes = {
   getRoomsFromServer: PropTypes.func.isRequired,
   setSocket: PropTypes.func.isRequired,
   socket: PropTypes.object,
-  receiveMessage: PropTypes.func.isRequired,
-  receivePosition: PropTypes.func.isRequired,
+  updatePosition: PropTypes.func.isRequired,
+  addMember: PropTypes.func.isRequired,
+  addMessage: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -66,7 +68,8 @@ export default withRouter(
   connect(mapStateToProps, {
     getRoomsFromServer,
     setSocket,
-    receiveMessage,
-    receivePosition,
+    updatePosition,
+    addMember,
+    addMessage,
   })(App),
 )

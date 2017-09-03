@@ -9,6 +9,14 @@ const Message = props => {
   const formattedDate = moment(Number(createAt)).format(
     'YYYY-MM-DD // h:mm:ss a',
   )
+  if (createBy === 'system') {
+    return (
+      <div className="systemMessage">
+        <div className="header">{formattedDate}</div>
+        <div className="content">{content}</div>
+      </div>
+    )
+  }
   return (
     <div className="message">
       <div className="avatar" style={{ backgroundColor: '#654321' }} />

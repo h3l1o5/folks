@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  createAt: { type: Date, default: Date.now },
+  createAt: { type: String, default: Date.now },
   lastPosition: {
     lat: { type: Number, default: null },
     lng: { type: Number, default: null },

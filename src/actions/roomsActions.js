@@ -18,17 +18,18 @@ const getRoomsFromServer = () => dispatch => {
     })
 }
 
-const addMember = (roomId, username) => dispatch => {
-  axios
-    .post(`/api/v1/room/${roomId}/members`, { username })
-    .then(() => {
-      dispatch({
-        type: ADD_MEMBER,
-        roomId,
-        username,
-      })
-    })
-    .catch(err => console.log(err))
+const addMember = (roomId, username) => ({
+  type: ADD_MEMBER,
+  roomId,
+  username,
+})
+
+const joinRoom = (socket, roomId, username) => dispatch => {
+  socket.emit('join room', {
+    roomId,
+    username,
+  })
+  dispatch(addMember(roomId, username))
 }
 
-export { getRoomsFromServer, setRoomsList, addMember }
+export { getRoomsFromServer, setRoomsList, joinRoom, addMember }

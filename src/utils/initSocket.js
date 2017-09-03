@@ -1,17 +1,12 @@
 export default (socket, actions) => {
   socket.on('message', message => {
-    actions.receiveMessage(
-      message.id,
-      message.createBy,
-      message.createAt,
-      message.content,
-    )
+    actions.addMessage(message)
   })
   socket.on('position', data => {
-    actions.receivePosition(data.username, data.position)
+    actions.updatePosition(data.username, data.position)
   })
-  socket.on('join', data => {
-    // TODO: handle user join the room
+  socket.on('someone join', data => {
+    actions.addMember(data.roomId, data.username)
   })
 
   socket.on('quit', data => {

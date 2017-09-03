@@ -8,8 +8,6 @@ import {
   enterRoom,
   leaveRoom,
   sendMessage,
-  receiveMessage,
-  receivePosition,
 } from '../actions/currentRoomActions'
 import Header from './Header'
 import Map from './Map'
@@ -122,6 +120,4 @@ export default connect(mapStateToProps, {
   enterRoom,
   leaveRoom,
   sendMessage,
-  receiveMessage,
-  receivePosition,
 })(Room)

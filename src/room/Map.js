@@ -7,6 +7,7 @@ import _ from 'lodash'
 import { sendPosition } from '../actions/currentRoomActions'
 
 import './Map.css'
+import icon from '../icons/DonaldTrump.png'
 
 const GettingStartedGoogleMap = withGoogleMap(props => (
   <GoogleMap
@@ -20,9 +21,10 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
       <Marker
         key={marker.username}
         position={{
-          lat: marker.lastPosition.lat,
-          lng: marker.lastPosition.lng,
+          lat: Number(marker.lastPosition.lat),
+          lng: Number(marker.lastPosition.lng),
         }}
+        options={{ icon }}
       />
     ))}
   </GoogleMap>

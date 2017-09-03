@@ -5,7 +5,7 @@ import moment from 'moment'
 import _ from 'lodash'
 
 import RoomCard from './RoomCard'
-import { getRoomsFromServer, addMember } from '../actions/roomsActions'
+import { getRoomsFromServer, joinRoom } from '../actions/roomsActions'
 import { setSnackBar } from '../actions/lobbyActions'
 
 import './RoomCardList.css'
@@ -26,7 +26,10 @@ class RoomCardList extends Component {
   }
 
   handleJoinRoom = roomId => {
-    this.props.addMember(roomId, this.props.user.username)
+    const { socket, user, joinRoom } = this.props
+    if (socket) {
+      joinRoom(socket, roomId, user.username)
+    }
   }
 
   handlEnterRoom = (isValid, roomId) => {
@@ -65,6 +68,10 @@ class RoomCardList extends Component {
   }
 }
 
+RoomCardList.defaultProps = {
+  socket: null,
+}
+
 RoomCardList.contextTypes = {
   router: PropTypes.object.isRequired,
 }
@@ -72,18 +79,20 @@ RoomCardList.contextTypes = {
 RoomCardList.propTypes = {
   rooms: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
+  socket: PropTypes.object,
   getRoomsFromServer: PropTypes.func.isRequired,
-  addMember: PropTypes.func.isRequired,
+  joinRoom: PropTypes.func.isRequired,
   setSnackBar: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
   rooms: state.rooms,
   user: state.auth.user,
+  socket: state.auth.socket,
 })
 
 export default connect(mapStateToProps, {
   getRoomsFromServer,
-  addMember,
+  joinRoom,
   setSnackBar,
 })(RoomCardList)
