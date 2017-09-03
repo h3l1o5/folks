@@ -22,6 +22,11 @@
   grid-template-columns: 2fr 3fr auto;
 }
 
+.roomCard > .main:focus {
+  outline: none;
+  border: none;
+}
+
 .roomCard > .main > .picture {
   background-color: lightcoral;
   margin: 5px;

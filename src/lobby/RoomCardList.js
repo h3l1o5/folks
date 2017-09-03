@@ -6,6 +6,7 @@ import _ from 'lodash'
 
 import RoomCard from './RoomCard'
 import { getRoomsFromServer, addMember } from '../actions/roomsActions'
+import { setSnackBar } from '../actions/lobbyActions'
 
 import './RoomCardList.css'
 
@@ -28,8 +29,17 @@ class RoomCardList extends Component {
     this.props.addMember(roomId, this.props.user.username)
   }
 
-  handlEnterRoom = roomId => {
-    this.context.router.history.push(`/app/room/${roomId}`)
+  handlEnterRoom = (isValid, roomId) => {
+    if (!isValid) {
+      const snackBar = {
+        open: true,
+        color: '#FF1744',
+        message: 'You are not member of this room',
+      }
+      this.props.setSnackBar(snackBar)
+    } else {
+      this.context.router.history.push(`/app/room/${roomId}`)
+    }
   }
 
   render() {
@@ -64,6 +74,7 @@ RoomCardList.propTypes = {
   user: PropTypes.object.isRequired,
   getRoomsFromServer: PropTypes.func.isRequired,
   addMember: PropTypes.func.isRequired,
+  setSnackBar: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -74,4 +85,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getRoomsFromServer,
   addMember,
+  setSnackBar,
 })(RoomCardList)
