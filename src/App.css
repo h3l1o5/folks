@@ -1,11 +1,8 @@
 .app {
   max-width: 100%;
   min-height: 100%;
-  background-color: #e2e1e0;
 }
 
 .appContent {
   min-height: 100%;
-  max-width: 840px;
-  margin: 0 auto;
 }

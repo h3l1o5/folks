@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { setShowAddRoomModal } from '../actions/lobbyActions'
 
-import './AppBar.css'
+import './Header.css'
 
 const AppBar = props => (
   <div className="appBar">

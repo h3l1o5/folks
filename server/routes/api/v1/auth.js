@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
                   id: user._id,
                   username: user.username,
                 },
-                config.jwtSecret
+                config.jwtSecret,
               )
               res.json({ token })
             } else {

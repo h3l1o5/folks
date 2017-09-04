@@ -1,4 +1,6 @@
 .roomCardList {
   background-color: #e2e1e0;
   min-height: 100%;
+  max-width: 840px;
+  margin: 0 auto;
 }

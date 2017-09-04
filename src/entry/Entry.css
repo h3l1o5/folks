@@ -1,53 +1,49 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+.container {
+  max-width: 1170px;
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: ". . ." ". brand ." ". loginForm ." ". loginForm .";
+}
 
-body > button {
+.container>button {
   position: absolute;
   right: 20px;
   top: 20px;
 }
 
-.container {
-  max-width: 1170px;
-  height: 100%;
-  margin: 0 auto;
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: ".     .     ." 
-                       ".   brand   ." 
-                       ". loginForm ." 
-                       ". loginForm .";
-}
-
-.container > #brand {
+.container>#brand {
   grid-area: brand;
   text-align: center;
 }
 
-.container > #brand > h1 {
+.container>#brand>h1 {
   font-size: 100px;
   font-family: "Raleway", sans-serif;
   color: #ff4081;
 }
 
-.container > #loginForm {
+.container>#loginForm {
   grid-area: loginForm;
 }
 
-.container > #loginForm #loginButton {
+.container>#loginForm #loginButton {
   text-align: center;
   padding-top: 20px;
 }
 
-.container > #loginForm button {
+.container>#loginForm button {
   width: 50%;
 }
 
-.container > #loginForm .error > .header {
+.container>#loginForm .error>.header {
   font-size: 15px;
 }
 
-.container > #loginForm .error p {
+.container>#loginForm .error p {
   font-size: 13px;
 }
 
@@ -59,13 +55,13 @@ body > button {
   font-size: 13px;
 }
 
-.modal > .header > p {
+.modal>.header>p {
   color: #ff4081;
   font-size: 30px;
 }
 
 @media screen and (max-width: 480px) {
-  .container > #brand > h1 {
+  .container>#brand>h1 {
     font-size: 70px;
   }
 }
