@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import {
   SET_CURRENT_ROOM,
+  SET_CURRENT_ROOM_MEMBER,
   ADD_MESSAGE,
   UPDATE_POSITION,
 } from '../actions/types'
@@ -24,6 +25,19 @@ export default (state = initialState, action = {}) => {
         createAt: action.createAt,
         members: action.members,
         messages: action.messages,
+      }
+    }
+    case SET_CURRENT_ROOM_MEMBER: {
+      const newMembers = [
+        ...state.members,
+        {
+          username: action.username,
+          lastPosition: action.lastPosition,
+        },
+      ]
+      return {
+        ...state,
+        members: newMembers,
       }
     }
     case ADD_MESSAGE: {

@@ -11,9 +11,15 @@ module.exports = io => {
     })
 
     socket.on('join room', data => {
-      socket.broadcast.to(data.roomId).emit('someone join', {
-        roomId: data.roomId,
-        username: data.username,
+      User.findOne({ username: data.username }, (err, user) => {
+        if (err) {
+          return socket.emit('error', err)
+        }
+        socket.broadcast.to(data.roomId).emit('someone join', {
+          roomId: data.roomId,
+          username: data.username,
+          lastPosition: user.lastPosition,
+        })
       })
       const message = {
         messageId: uuid.v4(),

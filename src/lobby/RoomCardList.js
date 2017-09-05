@@ -41,14 +41,14 @@ class RoomCardList extends Component {
       }
       this.props.setSnackBar(snackBar)
     } else {
-      this.context.router.history.push(`/app/room/${roomId}`)
+      this.context.router.history.push(`/room/${roomId}`)
     }
   }
 
   render() {
     const rooms = this.props.rooms.map(room => {
       const dateFormate = moment(Number(room.createAt)).format(
-        'YYYY-M-D, h:mm:ss a',
+        'YYYY-M-D, h:mm:ss a'
       )
       const role = this.checkRole(room)
       return (

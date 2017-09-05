@@ -7,7 +7,6 @@ import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import CloseIcon from 'material-ui-icons/Close'
 import Switch from 'material-ui/Switch'
-import Icon from 'material-ui/Icon'
 
 import './Header.css'
 
@@ -31,9 +30,6 @@ const Header = props => (
             checked={props.showMap}
             onChange={(event, checked) => props.onMapSwitherClick(checked)}
           />
-        </div>
-        <div className="menu">
-          <Icon>more_vert</Icon>
         </div>
       </Toolbar>
     </AppBar>

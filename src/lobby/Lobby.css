@@ -4,6 +4,10 @@
   padding-top: 48px;
 }
 
+.lobby > .pushable {
+  height: calc(100vh - 48px);
+}
+
 .example-enter {
   opacity: 0.01;
 }
@@ -34,5 +38,8 @@
 @media screen and (min-width: 480px) {
   .lobby {
     padding-top: 72px;
+  }
+  .lobby > .pushable {
+    height: calc(100vh - 72px);
   }
 }

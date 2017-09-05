@@ -1,0 +1,12 @@
+button.menuButton {
+  background-color: #fff;
+  height: 60px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid lightgray;
+  cursor: pointer;
+}
+
+button.menuButton:hover {
+  background-color: #eee;
+}

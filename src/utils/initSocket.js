@@ -7,6 +7,7 @@ export default (socket, actions) => {
   })
   socket.on('someone join', data => {
     actions.addMember(data.roomId, data.username)
+    actions.setMembers(data.username, data.lastPosition)
   })
 
   socket.on('quit', data => {

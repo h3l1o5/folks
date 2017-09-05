@@ -2,12 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { setShowAddRoomModal } from '../actions/lobbyActions'
+import { setShowAddRoomModal, setShowSideMenu } from '../actions/lobbyActions'
 
 import './Header.css'
 
 const AppBar = props => (
   <div className="appBar">
+    <div className="menu">
+      <i
+        className="material-icons"
+        role="button"
+        tabIndex="0"
+        onClick={() => props.setShowSideMenu(!props.showSideMenu)}
+      >
+        menu
+      </i>
+    </div>
     <div className="brand">folks</div>
     <div className="addRoom">
       <i
@@ -24,6 +34,15 @@ const AppBar = props => (
 
 AppBar.propTypes = {
   setShowAddRoomModal: PropTypes.func.isRequired,
+  setShowSideMenu: PropTypes.func.isRequired,
+  showSideMenu: PropTypes.bool.isRequired,
 }
 
-export default connect(null, { setShowAddRoomModal })(AppBar)
+const mapStateToProps = state => ({
+  showSideMenu: state.lobby.showSideMenu,
+})
+
+export default connect(mapStateToProps, {
+  setShowAddRoomModal,
+  setShowSideMenu,
+})(AppBar)

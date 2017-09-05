@@ -1,10 +1,9 @@
 import { SET_CURRENT_USER, SET_SOCKET } from '../actions/types'
 import setAuthorizationToken from '../utils/setAuthorizationToken'
 
-const setCurrentUser = (user, socket) => ({
+const setCurrentUser = user => ({
   type: SET_CURRENT_USER,
   user,
-  socket,
 })
 
 const setSocket = socket => ({
@@ -15,7 +14,7 @@ const setSocket = socket => ({
 const logout = () => dispatch => {
   localStorage.removeItem('jwt')
   setAuthorizationToken(false)
-  dispatch(setCurrentUser({}, {}))
+  dispatch(setCurrentUser({}))
 }
 
 export { logout, setCurrentUser, setSocket }

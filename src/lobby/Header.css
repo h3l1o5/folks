@@ -10,7 +10,7 @@
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.36);
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  grid-template-areas: ". brand add";
+  grid-template-areas: "menu brand add";
 }
 
 .brand {
@@ -23,10 +23,30 @@
   grid-area: brand;
 }
 
+.menu {
+  width: 100%;
+  grid-area: menu;
+  text-align: left;
+}
+
+.menu i {
+  font-size: 30px;
+  color: white;
+  margin-top: 10px;
+  margin-left: 30px;
+  cursor: pointer;
+
+}
+.menu i:focus {
+  border: none;
+  outline: none;
+}
+
 .addRoom {
   grid-area: add;
   text-align: right;
 }
+
 
 .addRoom i {
   font-size: 30px;
@@ -34,6 +54,11 @@
   margin-top: 10px;
   margin-right: 20px;
   cursor: pointer;
+}
+
+.addRoom i:focus {
+  border: none;
+  outline: none;
 }
 
 .addRoom i:hover {
@@ -57,5 +82,10 @@
 
   .addRoom i {
     font-size: 50px;
+  }
+
+  .menu i {
+    font-size: 40px;
+    margin-top: 17px;
   }
 }

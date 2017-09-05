@@ -24,7 +24,7 @@ class Entry extends Component {
   render() {
     return (
       <div className="container">
-        {this.props.auth.user.username && <Redirect to="/lobby" />}
+        {this.props.auth.user && <Redirect to="/lobby" />}
         <div id="brand">
           <h1>folks</h1>
         </div>

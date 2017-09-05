@@ -3,6 +3,7 @@ import uuid from 'uuid'
 
 import {
   SET_CURRENT_ROOM,
+  SET_CURRENT_ROOM_MEMBER,
   UPDATE_MESSAGES,
   ADD_MESSAGE,
   UPDATE_POSITION,
@@ -36,6 +37,12 @@ const leaveRoom = (socket, roomId) => dispatch => {
     messages: null,
   })
 }
+
+const setMembers = (username, lastPosition) => ({
+  type: SET_CURRENT_ROOM_MEMBER,
+  username,
+  lastPosition,
+})
 
 const getMessagesFromServer = roomId => dispatch => {
   axios.get(`/api/v1/room/${roomId}/messages`).then(messages => {
@@ -74,7 +81,7 @@ const sendMessage = (socket, roomId, createBy, content) => dispatch => {
       createBy,
       createAt,
       content,
-    }),
+    })
   )
 }
 
@@ -96,6 +103,7 @@ const sendPosition = (socket, roomId, username, position) => dispatch => {
 export {
   enterRoom,
   leaveRoom,
+  setMembers,
   getMessagesFromServer,
   addMessage,
   sendMessage,

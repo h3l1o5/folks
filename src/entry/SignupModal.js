@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-import { Modal, Header, Button, Icon, Form, Message } from 'semantic-ui-react'
+import { Modal, Header, Button, Form, Message } from 'semantic-ui-react'
 
 class SignupModal extends Component {
   state = {
