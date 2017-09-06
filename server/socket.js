@@ -93,7 +93,6 @@ module.exports = io => {
         if (err) {
           return socket.emit('error', err)
         }
-        console.log(user)
         user.lastPosition = data.position
         user
           .save()
