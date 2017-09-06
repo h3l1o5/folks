@@ -18,7 +18,9 @@ import './App.css'
 
 class App extends Component {
   componentDidMount() {
-    this.props.getRoomsFromServer()
+    if (this.props.user) {
+      this.props.getRoomsFromServer()
+    }
     // set socket to store.auth.socket
     this.setSocketToStore()
   }
@@ -51,6 +53,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
+  user: null,
   socket: null,
 }
 
@@ -61,10 +64,12 @@ App.propTypes = {
   addMember: PropTypes.func.isRequired,
   addMessage: PropTypes.func.isRequired,
   setMembers: PropTypes.func.isRequired,
+  user: PropTypes.object,
   socket: PropTypes.object,
 }
 
 const mapStateToProps = state => ({
+  user: state.auth.user,
   socket: state.auth.socket,
 })
 

@@ -12,7 +12,6 @@ class SideMenu extends Component {
   handleLogoutClick = () => {
     this.props.setShowSideMenu(false)
     this.props.logout()
-    this.context.router.history.push('/')
   }
 
   render() {

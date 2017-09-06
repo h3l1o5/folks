@@ -14,7 +14,7 @@ const setSocket = socket => ({
 const logout = () => dispatch => {
   localStorage.removeItem('jwt')
   setAuthorizationToken(false)
-  dispatch(setCurrentUser({}))
+  dispatch(setCurrentUser(null))
 }
 
 export { logout, setCurrentUser, setSocket }
