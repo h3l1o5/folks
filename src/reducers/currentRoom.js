@@ -1,44 +1,14 @@
 import _ from 'lodash'
 import {
   SET_CURRENT_ROOM,
-  SET_CURRENT_ROOM_MEMBER,
   ADD_MESSAGE,
   UPDATE_POSITION,
 } from '../actions/types'
 
-const initialState = {
-  id: null,
-  title: null,
-  createBy: null,
-  createAt: null,
-  members: null,
-  messages: null,
-}
-
-export default (state = initialState, action = {}) => {
+export default (state = null, action = {}) => {
   switch (action.type) {
     case SET_CURRENT_ROOM: {
-      return {
-        id: action.roomId,
-        title: action.title,
-        createBy: action.createBy,
-        createAt: action.createAt,
-        members: action.members,
-        messages: action.messages,
-      }
-    }
-    case SET_CURRENT_ROOM_MEMBER: {
-      const newMembers = [
-        ...state.members,
-        {
-          username: action.username,
-          lastPosition: action.lastPosition,
-        },
-      ]
-      return {
-        ...state,
-        members: newMembers,
-      }
+      return action.room
     }
     case ADD_MESSAGE: {
       const newMessages = [

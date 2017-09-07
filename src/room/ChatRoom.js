@@ -8,9 +8,7 @@ import './ChatRoom.css'
 
 const ChatRoom = props => (
   <div className="ChatRoom">
-    {props.currentRoom.id && (
-      <MessageList messages={props.currentRoom.messages} />
-    )}
+    {props.currentRoom && <MessageList messages={props.currentRoom.messages} />}
     <MessageForm
       placeholder={`Message #${props.currentRoom.title}`}
       onSubmit={props.handleSubmit}

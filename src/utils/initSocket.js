@@ -5,9 +5,8 @@ export default (socket, actions) => {
   socket.on('position', data => {
     actions.updatePosition(data.username, data.position)
   })
-  socket.on('someone join', data => {
-    actions.addMember(data.roomId, data.username)
-    actions.setMembers(data.username, data.lastPosition)
+  socket.on('update currentRoom', data => {
+    actions.fetchAndSetCurrentRoom(data.roomId)
   })
 
   socket.on('quit', data => {

@@ -6,11 +6,12 @@ import io from 'socket.io-client'
 
 import routes from './routes'
 import { setSocket } from './actions/authActions'
-import { addMember, getRoomsFromServer } from './actions/roomsActions'
+import { getRoomsFromServer } from './actions/roomsActions'
 import {
+  setCurrentRoom,
   updatePosition,
   addMessage,
-  setMembers,
+  fetchAndSetCurrentRoom,
 } from './actions/currentRoomActions'
 import initSocket from './utils/initSocket'
 
@@ -20,24 +21,32 @@ class App extends Component {
   componentDidMount() {
     if (this.props.user) {
       this.props.getRoomsFromServer()
+      // set socket to store.auth.socket
+      this.setSocketToStore()
     }
-    // set socket to store.auth.socket
-    this.setSocketToStore()
   }
 
   componentWillUnmount() {
-    this.props.socket.close()
-    this.props.setSocket({})
+    const { socket, setSocket } = this.props
+    if (socket) {
+      socket.close()
+      setSocket({})
+    }
   }
 
   setSocketToStore = () => {
     const socket = io()
-    const { updatePosition, addMember, addMessage, setMembers } = this.props
-    const actions = {
+    const {
+      setCurrentRoom,
       updatePosition,
-      addMember,
       addMessage,
-      setMembers,
+      fetchAndSetCurrentRoom,
+    } = this.props
+    const actions = {
+      setCurrentRoom,
+      updatePosition,
+      addMessage,
+      fetchAndSetCurrentRoom,
     }
     initSocket(socket, actions)
     this.props.setSocket(socket)
@@ -60,10 +69,10 @@ App.defaultProps = {
 App.propTypes = {
   getRoomsFromServer: PropTypes.func.isRequired,
   setSocket: PropTypes.func.isRequired,
+  setCurrentRoom: PropTypes.func.isRequired,
   updatePosition: PropTypes.func.isRequired,
-  addMember: PropTypes.func.isRequired,
   addMessage: PropTypes.func.isRequired,
-  setMembers: PropTypes.func.isRequired,
+  fetchAndSetCurrentRoom: PropTypes.func.isRequired,
   user: PropTypes.object,
   socket: PropTypes.object,
 }
@@ -77,9 +86,9 @@ export default withRouter(
   connect(mapStateToProps, {
     getRoomsFromServer,
     setSocket,
+    setCurrentRoom,
     updatePosition,
-    addMember,
     addMessage,
-    setMembers,
+    fetchAndSetCurrentRoom,
   })(App)
 )

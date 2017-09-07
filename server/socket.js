@@ -11,32 +11,28 @@ module.exports = io => {
     })
 
     socket.on('join room', data => {
-      User.findOne({ username: data.username }, (err, user) => {
-        if (err) {
-          return socket.emit('error', err)
-        }
-        socket.broadcast.to(data.roomId).emit('someone join', {
-          roomId: data.roomId,
-          username: data.username,
-          lastPosition: user.lastPosition,
-        })
-      })
+      // create a system message
       const message = {
         messageId: uuid.v4(),
         createBy: 'system',
         createAt: Date.now(),
         content: `${data.username} joined this room!`,
       }
-      socket.broadcast.to(data.roomId).emit('message', message)
       Room.findById(data.roomId, (err, room) => {
         if (err) {
           return socket.emit('error', err)
         }
+        // save new member and system message into db
         room.members.push(data.username)
         room.messages.push(message)
         room
           .save()
-          .then(() => {})
+          .then(() => {
+            // after saving, use socket to ask all members in this room to update currentRoom data
+            socket.broadcast
+              .to(data.roomId)
+              .emit('update currentRoom', { roomId: data.roomId })
+          })
           .catch(err => {
             socket.emit('error', err)
           })

@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import Slide from 'material-ui/transitions/Slide'
 import {
-  enterRoom,
-  leaveRoom,
+  fetchAndSetCurrentRoom,
+  setCurrentRoom,
   sendMessage,
 } from '../actions/currentRoomActions'
 import Header from './Header'
@@ -25,23 +25,28 @@ class Room extends Component {
   }
 
   componentDidMount() {
-    const { socket, match, enterRoom } = this.props
+    const { socket, match, fetchAndSetCurrentRoom } = this.props
     if (socket) {
-      enterRoom(socket, match.params.roomId)
+      const roomId = match.params.roomId
+      socket.emit('enter room', { roomId })
+      fetchAndSetCurrentRoom(roomId)
     }
   }
 
   componentDidUpdate(prevProps) {
     if (!prevProps.socket) {
-      const { socket, match, enterRoom } = this.props
-      enterRoom(socket, match.params.roomId)
+      const { match, fetchAndSetCurrentRoom } = this.props
+      const roomId = match.params.roomId
+      fetchAndSetCurrentRoom(roomId)
     }
   }
 
   componentWillUnmount() {
-    const { socket, currentRoom, leaveRoom } = this.props
+    const { socket, currentRoom, setCurrentRoom } = this.props
     if (socket) {
-      leaveRoom(socket, currentRoom.id)
+      const roomId = currentRoom.id
+      socket.emit('leave room', { roomId })
+      setCurrentRoom(null)
     }
   }
 
@@ -65,27 +70,29 @@ class Room extends Component {
     const currentRoom = this.props.currentRoom
     return (
       <div>
-        <Dialog
-          fullScreen
-          open={this.state.open}
-          onRequestClose={this.handleRoomClose}
-          transition={<Slide direction="up" />}
-        >
-          <Header
-            title={currentRoom.title}
-            showMap={this.state.showMap}
-            onCloseButtonClick={this.handleRoomClose}
-            onMapSwitherClick={this.handleShowMap}
-          />
-          {this.state.showMap ? (
-            <Map />
-          ) : (
-            <ChatRoom
-              currentRoom={currentRoom}
-              handleSubmit={this.handleSubmit}
+        {currentRoom && (
+          <Dialog
+            fullScreen
+            open={this.state.open}
+            onRequestClose={this.handleRoomClose}
+            transition={<Slide direction="up" />}
+          >
+            <Header
+              title={currentRoom.title}
+              showMap={this.state.showMap}
+              onCloseButtonClick={this.handleRoomClose}
+              onMapSwitherClick={this.handleShowMap}
             />
-          )}
-        </Dialog>
+            {this.state.showMap ? (
+              <Map />
+            ) : (
+              <ChatRoom
+                currentRoom={currentRoom}
+                handleSubmit={this.handleSubmit}
+              />
+            )}
+          </Dialog>
+        )}
       </div>
     )
   }
@@ -93,15 +100,16 @@ class Room extends Component {
 
 Room.defaultProps = {
   socket: null,
+  currentRoom: null,
 }
 
 Room.propTypes = {
   match: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   socket: PropTypes.object,
-  currentRoom: PropTypes.object.isRequired,
-  enterRoom: PropTypes.func.isRequired,
-  leaveRoom: PropTypes.func.isRequired,
+  currentRoom: PropTypes.object,
+  fetchAndSetCurrentRoom: PropTypes.func.isRequired,
+  setCurrentRoom: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
 }
 
@@ -117,7 +125,7 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-  enterRoom,
-  leaveRoom,
+  fetchAndSetCurrentRoom,
+  setCurrentRoom,
   sendMessage,
 })(Room)

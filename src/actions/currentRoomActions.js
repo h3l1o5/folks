@@ -1,56 +1,26 @@
 import axios from 'axios'
 import uuid from 'uuid'
 
-import {
-  SET_CURRENT_ROOM,
-  SET_CURRENT_ROOM_MEMBER,
-  UPDATE_MESSAGES,
-  ADD_MESSAGE,
-  UPDATE_POSITION,
-} from './types'
+import { SET_CURRENT_ROOM, ADD_MESSAGE, UPDATE_POSITION } from './types'
 
-const enterRoom = (socket, roomId) => dispatch => {
-  socket.emit('enter room', { roomId })
-  axios.get(`/api/v1/room/${roomId}`).then(res => {
-    const room = res.data
-    dispatch({
-      type: SET_CURRENT_ROOM,
-      roomId,
-      title: room.title,
-      createBy: room.createBy,
-      createAt: room.createAt,
-      members: room.members,
-      messages: room.messages,
-    })
-  })
-}
-
-const leaveRoom = (socket, roomId) => dispatch => {
-  socket.emit('leave room', { roomId })
-  dispatch({
-    type: SET_CURRENT_ROOM,
-    roomId: null,
-    title: null,
-    createBy: null,
-    createAt: null,
-    members: null,
-    messages: null,
-  })
-}
-
-const setMembers = (username, lastPosition) => ({
-  type: SET_CURRENT_ROOM_MEMBER,
-  username,
-  lastPosition,
+const setCurrentRoom = room => ({
+  type: SET_CURRENT_ROOM,
+  room,
 })
 
-const getMessagesFromServer = roomId => dispatch => {
-  axios.get(`/api/v1/room/${roomId}/messages`).then(messages => {
-    dispatch({
-      type: UPDATE_MESSAGES,
-      roomId,
-      messages,
-    })
+const fetchAndSetCurrentRoom = roomId => dispatch => {
+  axios.get(`/api/v1/room/${roomId}`).then(res => {
+    const room = res.data
+    dispatch(
+      setCurrentRoom({
+        roomId,
+        title: room.title,
+        createBy: room.createBy,
+        createAt: room.createAt,
+        members: room.members,
+        messages: room.messages,
+      })
+    )
   })
 }
 
@@ -101,10 +71,8 @@ const sendPosition = (socket, roomId, username, position) => dispatch => {
 }
 
 export {
-  enterRoom,
-  leaveRoom,
-  setMembers,
-  getMessagesFromServer,
+  setCurrentRoom,
+  fetchAndSetCurrentRoom,
   addMessage,
   sendMessage,
   updatePosition,

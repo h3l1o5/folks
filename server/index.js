@@ -34,18 +34,18 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // api routes
 app.use('/api/v1/', apiRoute)
 
-// normal routes
-app.get('/app*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/../build/index.html'))
-})
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/index.html'))
-})
-
 // static
 app.use(express.static(path.join(__dirname, '/../build')))
-app.use(express.static(path.join(__dirname, 'static')))
-app.use(express.static(path.join(__dirname, '/../vendor')))
+// app.use(express.static(path.join(__dirname, 'static')))
+// app.use(express.static(path.join(__dirname, '/../vendor')))
+
+// normal routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/../build/index.html'))
+})
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'views/index.html'))
+// })
 
 // 4xx 5xx
 app.use((req, res) => {
