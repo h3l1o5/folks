@@ -53,7 +53,7 @@ class Room extends Component {
   handleRoomClose = () => {
     this.setState({ open: false })
     setTimeout(() => {
-      this.context.router.history.push('/app/lobby')
+      this.context.router.history.goBack()
     }, 250)
   }
 

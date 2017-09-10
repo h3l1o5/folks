@@ -5,13 +5,13 @@ const SALT_FACTOR = 10
 
 const userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   createAt: { type: String, default: Date.now },
   lastPosition: {
     lat: { type: Number, default: null },
     lng: { type: Number, default: null },
   },
+  currentRoom: { type: String, default: null },
 })
 
 userSchema.methods.checkPassword = function(guess) {

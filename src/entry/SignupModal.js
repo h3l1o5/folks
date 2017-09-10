@@ -1,39 +1,55 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
+import _ from 'lodash'
 
 import { Modal, Header, Button, Form, Message } from 'semantic-ui-react'
 
 class SignupModal extends Component {
   state = {
     username: '',
-    email: '',
+    usernameValid: true,
     password: '',
-    passwordComfirmation: '',
+    passwordValid: true,
     error: false,
     errorMessage: '',
     success: false,
   }
 
   handleSubmit = () => {
-    // TODO: check validation before post to server
-    const { username, email, password } = this.state
-    this.setState({ isLoading: true })
-    axios
-      .post('/api/v1/users', {
-        username,
-        email,
-        password,
-      })
-      .then(() =>
-        this.setState({ success: true, error: false, isLoading: false })
-      )
-      .catch(err => {
-        this.setState({
-          error: true,
-          errorMessage: err.response.data.error.message,
-          isLoading: false,
+    const { username, password } = this.state
+    let isValid = true
+    if (_.isEmpty(username)) {
+      this.setState({ usernameValid: false })
+      isValid = false
+    } else {
+      this.setState({ usernameValid: true })
+    }
+    if (_.isEmpty(password)) {
+      this.setState({ passwordValid: false })
+      isValid = false
+    } else {
+      this.setState({ passwordValid: true })
+    }
+
+    if (isValid) {
+      this.setState({ isLoading: true })
+      axios
+        .post('/api/v1/users', {
+          username,
+          password,
         })
-      })
+        .then(() =>
+          this.setState({ success: true, error: false, isLoading: false })
+        )
+        .catch(err => {
+          this.setState({
+            error: true,
+            errorMessage: err.response.data.error.message,
+            isLoading: false,
+          })
+        })
+    }
   }
 
   render() {
@@ -61,48 +77,27 @@ class SignupModal extends Component {
               header="Signup Failed"
               content={this.state.errorMessage}
             />
-            <Form.Group>
-              <Form.Input
-                width={6}
-                label="Username"
-                placeholder="Username"
-                value={this.state.username}
-                onChange={e => this.setState({ username: e.target.value })}
-                required
-                disabled={this.state.success}
-              />
-              <Form.Input
-                width={10}
-                type="email"
-                label="Email"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={e => this.setState({ email: e.target.value })}
-                required
-                disabled={this.state.success}
-              />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Input
-                type="password"
-                label="Password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={e => this.setState({ password: e.target.value })}
-                required
-                disabled={this.state.success}
-              />
-              <Form.Input
-                type="password"
-                label="Password Comfirmation"
-                placeholder="Password Comfirmation"
-                value={this.state.passwordComfirmation}
-                onChange={e =>
-                  this.setState({ passwordComfirmation: e.target.value })}
-                required
-                disabled={this.state.success}
-              />
-            </Form.Group>
+            <Form.Input
+              width={16}
+              label="Username"
+              placeholder="Username"
+              value={this.state.username}
+              onChange={e => this.setState({ username: e.target.value })}
+              required
+              disabled={this.state.success}
+              error={!this.state.usernameValid}
+            />
+            <Form.Input
+              width={16}
+              type="password"
+              label="Password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={e => this.setState({ password: e.target.value })}
+              required
+              disabled={this.state.success}
+              error={!this.state.passwordValid}
+            />
           </Form>
         </Modal.Content>
         <Modal.Actions>
@@ -120,6 +115,11 @@ class SignupModal extends Component {
       </Modal>
     )
   }
+}
+
+SignupModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 }
 
 export default SignupModal
