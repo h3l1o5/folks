@@ -13,7 +13,7 @@ const fetchAndSetCurrentRoom = roomId => dispatch => {
     const room = res.data
     dispatch(
       setCurrentRoom({
-        roomId,
+        id: roomId,
         title: room.title,
         createBy: room.createBy,
         createAt: room.createAt,

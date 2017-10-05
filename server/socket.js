@@ -19,7 +19,7 @@ module.exports = io => {
         content: `${data.username} joined this room!`,
       }
       Room.findById(data.roomId, (err, room) => {
-        if (err) {
+        if (err || !room) {
           return socket.emit('error', err)
         }
         // save new member and system message into db
@@ -61,7 +61,7 @@ module.exports = io => {
         content: data.content,
       })
       Room.findById(data.roomId, (err, room) => {
-        if (err) {
+        if (err || !room) {
           return socket.emit('error', err)
         }
         const newMessage = {
@@ -86,7 +86,7 @@ module.exports = io => {
         position: data.position,
       })
       User.findOne({ username: data.username }, (err, user) => {
-        if (err) {
+        if (err || !user) {
           return socket.emit('error', err)
         }
         user.lastPosition = data.position

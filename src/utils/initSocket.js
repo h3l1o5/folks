@@ -20,4 +20,8 @@ export default (socket, actions) => {
   socket.on('leave', data => {
     // TODO: handle member leabe the room
   })
+
+  socket.on('err', err => {
+    console.error(err)
+  })
 }
