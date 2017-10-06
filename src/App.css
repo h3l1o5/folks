@@ -1,8 +1,4 @@
 .app {
-  max-width: 100%;
-  min-height: 100%;
-}
-
-.appContent {
-  min-height: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
 }

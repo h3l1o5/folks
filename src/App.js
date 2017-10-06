@@ -53,11 +53,7 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="app">
-        <div className="appContent">{routes}</div>
-      </div>
-    )
+    return <div className="app">{routes}</div>
   }
 }
 
