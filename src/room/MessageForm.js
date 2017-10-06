@@ -11,7 +11,15 @@ class MessageForm extends Component {
     super(props)
     this.state = {
       messageContent: '',
+      submitButtonColor: 'secondary',
     }
+  }
+
+  handleInputChange = e => {
+    this.setState({
+      messageContent: e.target.value,
+      submitButtonColor: e.target.value ? 'primary' : 'secondary',
+    })
   }
 
   handleSubmit = event => {
@@ -20,18 +28,21 @@ class MessageForm extends Component {
     /**
      * click submit button or press `enter`
      */
+    if (!this.state.messageContent) return
     this.props.onSubmit(this.state.messageContent)
     this.setState({ messageContent: '' })
   }
 
   render() {
+    const { messageContent, submitButtonColor } = this.state
+    const { placeholder } = this.props
     return (
       <div className="messageForm">
         <input
           type="text"
-          value={this.state.messageContent}
-          placeholder={this.props.placeholder}
-          onChange={e => this.setState({ messageContent: e.target.value })}
+          value={messageContent}
+          placeholder={placeholder}
+          onChange={this.handleInputChange}
           onKeyUp={event => this.handleSubmit(event)}
         />
         <button className="sendMessageButton">
@@ -40,7 +51,7 @@ class MessageForm extends Component {
             tabIndex="0"
             onClick={() => this.handleSubmit(null)}
           >
-            <Icon color="primary">send</Icon>
+            <Icon color={submitButtonColor}>send</Icon>
           </span>
         </button>
       </div>

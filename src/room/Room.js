@@ -11,9 +11,8 @@ import {
 } from '../actions/currentRoomActions'
 import Header from './Header'
 import Map from './Map'
-import ChatRoom from './ChatRoom'
-
-import './Room.css'
+import MessageList from './MessageList'
+import MessageForm from './MessageForm'
 
 class Room extends Component {
   constructor(props) {
@@ -68,32 +67,31 @@ class Room extends Component {
 
   render() {
     const currentRoom = this.props.currentRoom
+    if (!currentRoom) return null
+
     return (
-      <div>
-        {currentRoom && (
-          <Dialog
-            fullScreen
-            open={this.state.open}
-            onRequestClose={this.handleRoomClose}
-            transition={<Slide direction="up" />}
-          >
-            <Header
-              title={currentRoom.title}
-              showMap={this.state.showMap}
-              onCloseButtonClick={this.handleRoomClose}
-              onMapSwitherClick={this.handleShowMap}
-            />
-            {this.state.showMap ? (
-              <Map />
-            ) : (
-              <ChatRoom
-                currentRoom={currentRoom}
-                handleSubmit={this.handleSubmit}
-              />
-            )}
-          </Dialog>
+      <Dialog
+        fullScreen
+        open={this.state.open}
+        onRequestClose={this.handleRoomClose}
+        transition={<Slide direction="up" />}
+      >
+        <Header
+          title={currentRoom.title}
+          showMap={this.state.showMap}
+          onCloseButtonClick={this.handleRoomClose}
+          onMapSwitherClick={this.handleShowMap}
+        />
+        {this.state.showMap ? (
+          <Map />
+        ) : (
+          <MessageList messages={currentRoom.messages} />
         )}
-      </div>
+        <MessageForm
+          placeholder={`Message #${currentRoom.title}`}
+          onSubmit={this.handleSubmit}
+        />
+      </Dialog>
     )
   }
 }

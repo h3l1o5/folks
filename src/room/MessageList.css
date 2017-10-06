@@ -1,13 +1,11 @@
 .messageList {
   padding: 10px;
-  border-bottom: 1px solid lightgray;
-  /* background-color: green; */
-  height: calc(100% - 50px);
+  height: calc(100% - 100px);
   overflow: auto;
 }
 
 @media screen and (min-width: 600px) {
   .messageList {
-    height: calc(100% - 50px);
+    height: calc(100% - 100px);
   }
 }

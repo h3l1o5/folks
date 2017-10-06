@@ -1,7 +1,13 @@
 .containerElement {
-  height: calc(100% - 56px);
+  height: calc(100% - 106px);
 }
 
 .mapElement {
   height: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .containerElement {
+    height: calc(100% - 112px);
+  }
 }
