@@ -7,7 +7,7 @@ import './Message.css'
 const Message = props => {
   const { createBy, createAt, content } = props
   const formattedDate = moment(Number(createAt)).format(
-    'YYYY-MM-DD // h:mm:ss a',
+    'YYYY-MM-DD // h:mm:ss a'
   )
   if (createBy === 'system') {
     return (

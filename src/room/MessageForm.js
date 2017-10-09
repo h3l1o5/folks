@@ -16,9 +16,10 @@ class MessageForm extends Component {
   }
 
   handleInputChange = e => {
+    const input = e.target.value.trim()
     this.setState({
       messageContent: e.target.value,
-      submitButtonColor: e.target.value ? 'primary' : 'secondary',
+      submitButtonColor: input ? 'primary' : 'secondary',
     })
   }
 
@@ -29,8 +30,8 @@ class MessageForm extends Component {
      * click submit button or press `enter`
      */
     if (!this.state.messageContent) return
-    this.props.onSubmit(this.state.messageContent)
-    this.setState({ messageContent: '' })
+    this.props.onSubmit(this.state.messageContent.trim())
+    this.setState({ messageContent: '', submitButtonColor: 'secondary' })
   }
 
   render() {

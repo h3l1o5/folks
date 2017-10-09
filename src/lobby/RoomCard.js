@@ -23,13 +23,13 @@ class RoomCard extends Component {
           tabIndex="0"
           onClick={this.handleClick}
         >
-          <div className="picture">TODO</div>
+          <div className="picture" />
           <div className="info">
             <div className="header">
               <div className="title">{this.props.title}</div>
               <div className="createBy">{this.props.createBy}</div>
             </div>
-            <div className="TBD">TODO</div>
+            <div className="TBD" />
           </div>
         </div>
         <div className="footer">
