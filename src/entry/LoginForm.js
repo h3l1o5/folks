@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import jwtDecode from 'jwt-decode'
 import axios from 'axios'
-import validator from 'validator'
 import classnames from 'classnames'
 
 import { setCurrentUser } from '../actions/authActions'
 import setAuthorizationToken from '../utils/setAuthorizationToken'
+import { usernameValidator, passwordValidator } from '../utils/validate'
 
 class LoginForm extends Component {
   state = {
@@ -21,23 +21,16 @@ class LoginForm extends Component {
   handleSubmit = e => {
     e.preventDefault()
 
-    let isValid = true
     const { username, password } = this.state
+    const UV = usernameValidator(username)
+    const PV = passwordValidator(password)
 
-    if (validator.isEmpty(username)) {
-      this.setState({ usernameValid: false })
-      isValid = false
-    } else {
-      this.setState({ usernameValid: true })
-    }
-    if (validator.isEmpty(password)) {
-      this.setState({ passwordValid: false })
-      isValid = false
-    } else {
-      this.setState({ passwordValid: true })
-    }
+    this.setState({
+      usernameValid: UV,
+      passwordValid: PV,
+    })
 
-    if (isValid) {
+    if (UV && PV) {
       this.setState({ isLoading: true })
       axios
         .post('/api/v1/auth', {
@@ -45,15 +38,13 @@ class LoginForm extends Component {
           password,
         })
         .then(res => {
-          this.setState({ isLoading: false })
-          this.setState({ hasError: false })
+          this.setState({ isLoading: false, hasError: false })
           localStorage.setItem('jwt', res.data.token)
           setAuthorizationToken(res.data.token)
           this.props.setCurrentUser(jwtDecode(res.data.token))
         })
         .catch(() => {
-          this.setState({ isLoading: false })
-          this.setState({ hasError: true })
+          this.setState({ isLoading: false, hasError: true })
         })
     }
   }

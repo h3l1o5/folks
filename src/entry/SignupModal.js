@@ -4,6 +4,7 @@ import axios from 'axios'
 import _ from 'lodash'
 
 import { Modal, Header, Button, Form, Message } from 'semantic-ui-react'
+import { usernameValidator, passwordValidator } from '../utils/validate'
 
 class SignupModal extends Component {
   state = {
@@ -14,25 +15,18 @@ class SignupModal extends Component {
     error: false,
     errorMessage: '',
     success: false,
+    isLoading: false,
   }
 
   handleSubmit = () => {
     const { username, password } = this.state
-    let isValid = true
-    if (_.isEmpty(username)) {
-      this.setState({ usernameValid: false })
-      isValid = false
-    } else {
-      this.setState({ usernameValid: true })
-    }
-    if (_.isEmpty(password)) {
-      this.setState({ passwordValid: false })
-      isValid = false
-    } else {
-      this.setState({ passwordValid: true })
-    }
 
-    if (isValid) {
+    const UV = usernameValidator(username)
+    const PV = passwordValidator(password)
+
+    this.setState({ usernameValid: UV, passwordValid: PV })
+
+    if (UV && PV) {
       this.setState({ isLoading: true })
       axios
         .post('/api/v1/users', {
@@ -53,50 +47,48 @@ class SignupModal extends Component {
   }
 
   render() {
+    const { show, onClose } = this.props
+    const {
+      username,
+      password,
+      usernameValid,
+      passwordValid,
+      isLoading,
+      error,
+      success,
+      errorMessage,
+    } = this.state
     return (
-      <Modal
-        open={this.props.show}
-        onClose={this.props.onClose}
-        size="small"
-        closeIcon
-      >
+      <Modal open={show} onClose={onClose} size="small" closeIcon>
         <Header icon="address card outline" color="grey" content="NEW USER" />
         <Modal.Content>
-          <Form
-            loading={this.state.isLoading}
-            error={this.state.error}
-            success={this.state.success}
-          >
+          <Form loading={isLoading} error={error} success={success}>
             <Message
               success
               header="Signup Successful"
               content="Welcome! Back to login page and login"
             />
-            <Message
-              error
-              header="Signup Failed"
-              content={this.state.errorMessage}
-            />
+            <Message error header="Signup Failed" content={errorMessage} />
             <Form.Input
               width={16}
               label="Username"
               placeholder="Username"
-              value={this.state.username}
+              value={username}
               onChange={e => this.setState({ username: e.target.value })}
               required
-              disabled={this.state.success}
-              error={!this.state.usernameValid}
+              disabled={success}
+              error={!usernameValid}
             />
             <Form.Input
               width={16}
               type="password"
               label="Password"
               placeholder="Password"
-              value={this.state.password}
+              value={password}
               onChange={e => this.setState({ password: e.target.value })}
               required
-              disabled={this.state.success}
-              error={!this.state.passwordValid}
+              disabled={success}
+              error={!passwordValid}
             />
           </Form>
         </Modal.Content>
@@ -107,7 +99,7 @@ class SignupModal extends Component {
             onClick={() => {
               this.handleSubmit(this.state)
             }}
-            disabled={this.state.success}
+            disabled={success}
           >
             Signup
           </Button>
