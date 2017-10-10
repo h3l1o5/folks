@@ -18,7 +18,7 @@ import initSocket from './utils/initSocket'
 import './App.css'
 
 class App extends Component {
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.user) {
       this.props.getRoomsFromServer()
       // set socket to store.auth.socket

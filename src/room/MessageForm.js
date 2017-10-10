@@ -11,7 +11,7 @@ class MessageForm extends Component {
     super(props)
     this.state = {
       messageContent: '',
-      submitButtonColor: 'secondary',
+      submitButtonColor: 'disabled',
     }
   }
 
@@ -19,7 +19,7 @@ class MessageForm extends Component {
     const input = e.target.value.trim()
     this.setState({
       messageContent: e.target.value,
-      submitButtonColor: input ? 'primary' : 'secondary',
+      submitButtonColor: input ? 'primary' : 'disabled',
     })
   }
 
@@ -31,7 +31,7 @@ class MessageForm extends Component {
      */
     if (!this.state.messageContent) return
     this.props.onSubmit(this.state.messageContent.trim())
-    this.setState({ messageContent: '', submitButtonColor: 'secondary' })
+    this.setState({ messageContent: '', submitButtonColor: 'disabled' })
   }
 
   render() {

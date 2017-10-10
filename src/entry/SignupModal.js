@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
-import _ from 'lodash'
 
 import { Modal, Header, Button, Form, Message } from 'semantic-ui-react'
 import { usernameValidator, passwordValidator } from '../utils/validate'

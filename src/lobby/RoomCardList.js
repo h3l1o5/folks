@@ -47,7 +47,7 @@ class RoomCardList extends Component {
 
   render() {
     const rooms = this.props.rooms.map(room => {
-      const dateFormate = moment(Number(room.createAt)).format(
+      const formattedDate = moment(Number(room.createAt)).format(
         'YYYY-M-D, h:mm:ss a'
       )
       const role = this.checkRole(room)
@@ -57,7 +57,7 @@ class RoomCardList extends Component {
           id={room.id}
           title={room.title}
           createBy={room.createBy}
-          createAt={dateFormate}
+          createAt={formattedDate}
           role={role}
           onJoin={this.handleJoinRoom}
           onEnter={this.handlEnterRoom}
@@ -68,10 +68,6 @@ class RoomCardList extends Component {
   }
 }
 
-RoomCardList.defaultProps = {
-  socket: null,
-}
-
 RoomCardList.contextTypes = {
   router: PropTypes.object.isRequired,
 }
@@ -79,7 +75,7 @@ RoomCardList.contextTypes = {
 RoomCardList.propTypes = {
   rooms: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
-  socket: PropTypes.object,
+  socket: PropTypes.object.isRequired,
   getRoomsFromServer: PropTypes.func.isRequired,
   joinRoom: PropTypes.func.isRequired,
   setSnackBar: PropTypes.func.isRequired,
