@@ -1,11 +1,9 @@
-const express = require('express')
+const router = require('express').Router()
 
 const users = require('./users')
 const auth = require('./auth')
 const rooms = require('./rooms')
 const room = require('./room')
-
-const router = express.Router()
 
 router.use('/users', users)
 router.use('/auth', auth)

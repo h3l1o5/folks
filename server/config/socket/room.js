@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 
-const Room = require('../models/Room.js')
+const Room = require('../../models/Room.js')
 
 module.exports = socket => {
   socket.on('join room', data => {

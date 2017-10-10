@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const jwt = require('jsonwebtoken')
 
 const Room = require('../../../models/Room')
 const authenticate = require('../../../middlewares/authenticate')
