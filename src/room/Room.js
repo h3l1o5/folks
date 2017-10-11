@@ -10,7 +10,7 @@ import {
   sendMessage,
 } from '../actions/currentRoomActions'
 import Header from './Header'
-import Map from './Map'
+import MapView from './MapView'
 import MessageList from './MessageList'
 import MessageForm from './MessageForm'
 
@@ -56,7 +56,7 @@ class Room extends Component {
     }, 250)
   }
 
-  handleSubmit = messageContent => {
+  handleSendMessage = messageContent => {
     const { socket, currentRoom, user, sendMessage } = this.props
     sendMessage(socket, currentRoom.id, user.username, messageContent)
   }
@@ -83,13 +83,13 @@ class Room extends Component {
           onMapSwitherClick={this.handleShowMap}
         />
         {this.state.showMap ? (
-          <Map />
+          <MapView />
         ) : (
           <MessageList messages={currentRoom.messages} />
         )}
         <MessageForm
           placeholder={`Message #${currentRoom.title}`}
-          onSubmit={this.handleSubmit}
+          onSubmit={this.handleSendMessage}
         />
       </Dialog>
     )
