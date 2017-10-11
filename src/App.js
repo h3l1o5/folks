@@ -21,8 +21,8 @@ class App extends Component {
   componentWillMount() {
     if (this.props.user) {
       this.props.getRoomsFromServer()
-      // set socket to store.auth.socket
     }
+    // set socket to store.auth.socket
     this.setSocketToStore()
   }
 
