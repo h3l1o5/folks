@@ -14,6 +14,7 @@ class MapView extends Component {
       lat: null,
       lng: null,
     },
+    markers: this.props.currentRoom.members,
   }
 
   componentDidMount() {
@@ -32,8 +33,41 @@ class MapView extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const messagesNow = this.props.currentRoom.messages
+    const messagesNext = nextProps.currentRoom.messages
+    if (messagesNow !== messagesNext) {
+      this.bindMarkerWithMessage(messagesNext[messagesNext.length - 1])
+    }
+  }
+
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchPos)
+  }
+
+  bindMarkerWithMessage = message => {
+    if (!this.timers) {
+      this.timers = {}
+    }
+    clearTimeout(this.timers[message.createBy])
+
+    const newMarkers = [...this.state.markers]
+    const targetMarkerIndex = _.findIndex(newMarkers, {
+      username: message.createBy,
+    })
+    newMarkers[targetMarkerIndex].showInfoWindow = true
+    newMarkers[targetMarkerIndex].infoWindowContent = message.content
+    this.setState({ markers: newMarkers })
+
+    this.timers[message.createBy] = setTimeout(() => {
+      const newMarkers = [...this.state.markers]
+      const targetMarkerIndex = _.findIndex(newMarkers, {
+        username: message.createBy,
+      })
+      newMarkers[targetMarkerIndex].showInfoWindow = false
+      newMarkers[targetMarkerIndex].infoWindowContent = null
+      this.setState({ markers: newMarkers })
+    }, 3000)
   }
 
   render() {
@@ -41,11 +75,9 @@ class MapView extends Component {
       <Map
         containerElement={<div className="containerElement" />}
         mapElement={<div className="mapElement" />}
-        onMapLoad={_.noop}
-        onMapClick={_.noop}
-        markers={this.props.currentRoom.members}
-        onMarkerRightClick={_.noop}
+        markers={this.state.markers}
         currentPosition={this.state.currentPosition}
+        newestMessage={this.state.newestMessage}
       />
     )
   }

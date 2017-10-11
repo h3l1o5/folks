@@ -1,14 +1,14 @@
 import React from 'react'
+import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import icon from '../icons/DonaldTrump.png'
+
+import './Map.css'
 
 const Map = withGoogleMap(props => (
   <GoogleMap
-    ref={props.onMapLoad}
     defaultZoom={8}
     defaultCenter={{ lat: 23.5, lng: 121.0 }}
-    onClick={props.onMapClick}
     options={{ minZoom: 3 }}
   >
     {props.markers.map(marker => (
@@ -19,7 +19,13 @@ const Map = withGoogleMap(props => (
           lng: Number(marker.lastPosition.lng),
         }}
         options={{ icon }}
-      />
+      >
+        {marker.showInfoWindow && (
+          <InfoWindow options={{ maxWidth: 200 }}>
+            <div className="infoWindowContent">{marker.infoWindowContent}</div>
+          </InfoWindow>
+        )}
+      </Marker>
     ))}
   </GoogleMap>
 ))
