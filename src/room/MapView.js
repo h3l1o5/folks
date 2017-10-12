@@ -10,10 +10,6 @@ import './MapView.css'
 
 class MapView extends Component {
   state = {
-    currentPosition: {
-      lat: null,
-      lng: null,
-    },
     markers: this.props.currentRoom.members,
   }
 
@@ -25,9 +21,9 @@ class MapView extends Component {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         }
-        this.setState({ currentPosition })
         if (currentPosition.lat && currentPosition.lng) {
           sendPosition(socket, currentRoom.id, user.username, currentPosition)
+          this.setState({ markers: this.props.currentRoom.members })
         }
       })
     }
@@ -36,8 +32,15 @@ class MapView extends Component {
   componentWillReceiveProps(nextProps) {
     const messagesNow = this.props.currentRoom.messages
     const messagesNext = nextProps.currentRoom.messages
+    const markersNow = this.state.markers
+    const markersNext = nextProps.currentRoom.members
+
     if (messagesNow !== messagesNext) {
       this.bindMarkerWithMessage(messagesNext[messagesNext.length - 1])
+    }
+
+    if (markersNow !== markersNext) {
+      this.setState({ markers: nextProps.currentRoom.members })
     }
   }
 
@@ -76,7 +79,6 @@ class MapView extends Component {
         containerElement={<div className="containerElement" />}
         mapElement={<div className="mapElement" />}
         markers={this.state.markers}
-        currentPosition={this.state.currentPosition}
         newestMessage={this.state.newestMessage}
       />
     )
